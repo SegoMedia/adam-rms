@@ -131,16 +131,21 @@ function projectFinancials($project) {
 
     $return['priceMaths'] = $projectFinanceHelper->durationMaths($project['projects_id']);
     foreach ($assets as $asset) {
-        $return['mass'] += ($asset['assets_mass'] == null ? $asset['assetTypes_mass'] : $asset['assets_mass']);
+        // Handle quantity for bulk assets; default to 1 for serialized assets
+        $quantity = isset($asset['assetsAssignments_quantity']) && $asset['assetsAssignments_quantity'] > 0 ? $asset['assetsAssignments_quantity'] : 1;
+        
+        $return['mass'] += ($asset['assets_mass'] == null ? $asset['assetTypes_mass'] : $asset['assets_mass']) * $quantity;
         $asset['value'] = new Money(($asset['assets_value'] != null ? $asset['assets_value'] : $asset['assetTypes_value']), new Currency($AUTH->data['instance']['instances_config_currency']));
-        $return['value'] = $return['value']->add($asset['value']);
+        $return['value'] = $return['value']->add($asset['value']->multiply($quantity));
 
         if ($asset['assetsAssignments_customPrice'] == null) {
             //The actual pricing calculator
             $asset['price'] = new Money(null, new Currency($AUTH->data['instance']['instances_config_currency']));
             $asset['price'] = $asset['price']->add((new Money(($asset['assets_dayRate'] !== null ? $asset['assets_dayRate'] : $asset['assetTypes_dayRate']), new Currency($AUTH->data['instance']['instances_config_currency'])))->multiply($return['priceMaths']['days']));
             $asset['price'] = $asset['price']->add((new Money(($asset['assets_weekRate'] !== null ? $asset['assets_weekRate'] : $asset['assetTypes_weekRate']), new Currency($AUTH->data['instance']['instances_config_currency'])))->multiply($return['priceMaths']['weeks']));
-        } else $asset['price'] = new Money($asset['assetsAssignments_customPrice'],new Currency($AUTH->data['instance']['instances_config_currency']));
+            // Multiply by quantity for bulk assets
+            $asset['price'] = $asset['price']->multiply($quantity);
+        } else $asset['price'] = new Money($asset['assetsAssignments_customPrice'] * $quantity, new Currency($AUTH->data['instance']['instances_config_currency']));
 
         $return['prices']['subTotal'] = $asset['price']->add($return['prices']['subTotal']);
 
@@ -154,7 +159,7 @@ function projectFinancials($project) {
         $asset['formattedValue'] = $moneyFormatter->format($asset['value']);
         $asset['formattedPrice'] = $moneyFormatter->format($asset['price']);
         $asset['formattedDiscountPrice'] = $moneyFormatter->format($asset['discountPrice']);
-        $asset['formattedMass'] = apiMass($asset['assets_mass'] == null ? $asset['assetTypes_mass'] : $asset['assets_mass']);
+        $asset['formattedMass'] = apiMass(($asset['assets_mass'] == null ? $asset['assetTypes_mass'] : $asset['assets_mass']) * $quantity);
 
         $asset['flagsblocks'] = assetFlagsAndBlocks($asset['assets_id']);
 

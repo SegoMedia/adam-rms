@@ -14,7 +14,7 @@ if (strlen($_POST['term']) > 0) {
 		OR assetTypes.assetTypes_name LIKE '%" . $bCMS->sanitizeStringMYSQL($_POST['term']) . "%'
     )");
 }
-$assets = $DBLIB->get("assets", 15, ["assets.assets_id", "assetTypes.assetTypes_name", "assets.assets_tag", "manufacturers.manufacturers_name"]);
+$assets = $DBLIB->get("assets", 15, ["assets.assets_id", "assetTypes.assetTypes_name", "assets.assets_tag", "manufacturers.manufacturers_name", "assets.assets_isQuantityBased", "assets.assets_quantity"]);
 if (!$assets) finish(false, ["code" => "LIST-ASSETS-FAIL", "message"=> "Could not search for assets"]);
 else {
     finish(true, null, $assets);

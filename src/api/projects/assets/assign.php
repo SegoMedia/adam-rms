@@ -86,17 +86,23 @@ foreach ($assetsToProcess as $asset) {
             "assetsAssignments_deleted" => 0,
             "assetsAssignments_timestamp" => date('Y-m-d H:i:s'),
             "assetsAssignments_linkedTo" => ($asset['linkedto'] !== false ? $assetsProcessing[$asset['linkedto']]['insertedid'] : null),
-            "assetsAssignments_discount" => ($asset['linkedto'] !== false ? $AUTH->data['instance']['instances_config_linkedDefaultDiscount'] : $project['projects_defaultDiscount'])
+            "assetsAssignments_discount" => ($asset['linkedto'] !== false ? $AUTH->data['instance']['instances_config_linkedDefaultDiscount'] : $project['projects_defaultDiscount']),
+            "assetsAssignments_quantity" => isset($_POST['assetsAssignments_quantity']) && is_numeric($_POST['assetsAssignments_quantity']) && $_POST['assetsAssignments_quantity'] > 0 ? intval($_POST['assetsAssignments_quantity']) : 1
         ];
         $insert = $DBLIB->insert("assetsAssignments", $insertData);
         if ($insert) {
+            // Handle quantity for bulk assets; default to 1 for serialized assets
+            $quantity = $insertData['assetsAssignments_quantity'];
+            
             //Calculate the maths changes needed for this assignment and add it to the project
-            $projectFinanceCacher->adjust('projectsFinanceCache_mass',($asset['assets_mass'] !== null ? $asset['assets_mass'] : $asset['assetTypes_mass']));
-            $projectFinanceCacher->adjust('projectsFinanceCache_value',new Money(($asset['assets_value'] !== null ? $asset['assets_value'] : $asset['assetTypes_value']), new Currency($AUTH->data['instance']['instances_config_currency'])));
+            $projectFinanceCacher->adjust('projectsFinanceCache_mass',($asset['assets_mass'] !== null ? $asset['assets_mass'] : $asset['assetTypes_mass']) * $quantity);
+            $projectFinanceCacher->adjust('projectsFinanceCache_value',new Money(($asset['assets_value'] !== null ? $asset['assets_value'] : $asset['assetTypes_value']) * $quantity, new Currency($AUTH->data['instance']['instances_config_currency'])));
 
             $price = new Money(null, new Currency($AUTH->data['instance']['instances_config_currency']));
             $price = $price->add((new Money(($asset['assets_dayRate'] !== null ? $asset['assets_dayRate'] : $asset['assetTypes_dayRate']), new Currency($AUTH->data['instance']['instances_config_currency'])))->multiply($priceMaths['days']));
             $price = $price->add((new Money(($asset['assets_weekRate'] !== null ? $asset['assets_weekRate'] : $asset['assetTypes_weekRate']), new Currency($AUTH->data['instance']['instances_config_currency'])))->multiply($priceMaths['weeks']));
+            // Multiply by quantity for bulk assets
+            $price = $price->multiply($quantity);
             $projectFinanceCacher->adjust('projectsFinanceCache_equipmentSubTotal', $price,false);
 
             //Thought a discount can't be set, there might be a default one from the project
