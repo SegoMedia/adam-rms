@@ -35,6 +35,12 @@ $array['assetTypes_value'] = $moneyParser->parse(($array['assetTypes_value'] ?? 
 $array['assetTypes_dayRate'] = $moneyParser->parse(($array['assetTypes_dayRate'] ?? '0.00'), $AUTH->data['instance']['instances_config_currency'])->getAmount();
 $array['assetTypes_weekRate'] = $moneyParser->parse(($array['assetTypes_weekRate'] ?? '0.00'), $AUTH->data['instance']['instances_config_currency'])->getAmount();
 
+// Convert mass from imperial to metric if needed (database always stores in kg)
+$unitSystem = isset($CONFIG['UNITS_MASS']) ? $CONFIG['UNITS_MASS'] : $CONFIGCLASS->get('UNITS_MASS');
+if (isset($array['assetTypes_mass']) && $array['assetTypes_mass'] !== null && $unitSystem === 'Imperial') {
+    $array['assetTypes_mass'] = (float)$array['assetTypes_mass'] / 2.20462; // Convert lbs to kg
+}
+
 $result = $DBLIB->insert("assetTypes", array_intersect_key( $array, array_flip( ['assetTypes_name','assetTypes_productLink','assetCategories_id','manufacturers_id','assetTypes_description','assetTypes_definableFields','assetTypes_mass','assetTypes_inserted',"instances_id","assetTypes_dayRate","assetTypes_weekRate","assetTypes_value"] ) ));
 if (!$result) finish(false, ["code" => "INSERT-FAIL", "message"=> "Could not insert asset type"]);
 else finish(true, null, ["assetTypes_id" => $result]);

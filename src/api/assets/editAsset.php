@@ -25,6 +25,12 @@ $array['assets_value'] = ($array['assets_value'] == null ? null : $moneyParser->
 $array['assets_dayRate'] = ($array['assets_dayRate'] == null ? null : $moneyParser->parse($array['assets_dayRate'], $AUTH->data['instance']['instances_config_currency'])->getAmount());
 $array['assets_weekRate'] = ($array['assets_weekRate'] == null ? null : $moneyParser->parse($array['assets_weekRate'], $AUTH->data['instance']['instances_config_currency'])->getAmount());
 
+// Convert mass from imperial to metric if needed (database always stores in kg)
+$unitSystem = isset($CONFIG['UNITS_MASS']) ? $CONFIG['UNITS_MASS'] : $CONFIGCLASS->get('UNITS_MASS');
+if (isset($array['assets_mass']) && $array['assets_mass'] !== null && $unitSystem === 'Imperial') {
+    $array['assets_mass'] = (float)$array['assets_mass'] / 2.20462; // Convert lbs to kg
+}
+
 $DBLIB->where("assets_id", $array['assets_id']);
 $DBLIB->where("assets.instances_id",$AUTH->data['instance']["instances_id"]);
 $DBLIB->join("assetTypes","assets.assetTypes_id=assetTypes.assetTypes_id","LEFT");

@@ -44,6 +44,27 @@ $configStructureArray = [
     "default" => "Europe/London",
     "envFallback" => false,
   ],
+  "UNITS_MASS" => [
+    "form" => [
+      "type" => "select",
+      "default" => function () {
+        return "Metric";
+      },
+      "name" => "Mass Unit System",
+      "group" => "General",
+      "description" => "The unit system to use for displaying mass/weight throughout the system. Metric uses kilograms (kg), Imperial uses pounds (lbs). Note: Mass values are stored in kilograms in the database regardless of this setting.",
+      "required" => true,
+      "maxlength" => 10,
+      "minlength" => 5,
+      "options" => ["Metric", "Imperial"],
+      "verifyMatch" => function ($value, $options) {
+        return ["valid" => in_array($value, $options), "value" => $value, "error" => in_array($value, $options) ? '' : "Invalid unit system"];
+      }
+    ],
+    "specialRequest" => true,
+    "default" => "Metric",
+    "envFallback" => "CONFIG_UNITS_MASS",
+  ],
   "EMAILS_ENABLED" => [
     "form" => [
       "type" => "select",

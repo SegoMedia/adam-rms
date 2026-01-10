@@ -115,7 +115,8 @@ id: "y-axis-value"
 }, {
 ticks: {
 callback: function (value, index, values) {
-return value.toLocaleString() + "kg";
+var unit = '{{ CONFIG.UNITS_MASS == 'Imperial' ? 'lbs' : 'kg' }}';
+return value.toLocaleString() + unit;
 },
 fontColor: '#efefef',
 beginAtZero: true

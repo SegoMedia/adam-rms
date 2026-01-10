@@ -54,12 +54,19 @@ foreach ($assets as $asset) {
     else if ($latestScan['assetTypes_name']) $assetLocation = "Inside asset " . $latestScan['assetTypes_name']; //TODO improve this to mean something a bit more
     else if ($latestScan['assetsBarcodes_customLocation']) $assetLocation = $latestScan['assetsBarcodes_customLocation'];
 
+    // Get mass value and convert if imperial units are enabled
+    $massValue = $asset['assets_mass'] !== null ?  $asset['assets_mass'] : $asset['assetTypes_mass'];
+    $unitSystem = isset($CONFIG['UNITS_MASS']) ? $CONFIG['UNITS_MASS'] : $CONFIGCLASS->get('UNITS_MASS');
+    if ($unitSystem === 'Imperial' && $massValue !== null) {
+        $massValue = $massValue * 2.20462; // Convert kg to lbs
+    }
+
     $array = [
         $asset['assets_tag'],
         $asset['assetCategoriesGroups_name'] . " - " . $asset['assetCategories_name'],
         $asset['assetTypes_name'],
         ($asset['manufacturers_id'] != 1 ? $asset['manufacturers_name'] : ""),
-        $asset['assets_mass'] !== null ?  $asset['assets_mass'] : $asset['assetTypes_mass'],
+        $massValue,
         $moneyFormatter->format(new Money($asset['assets_dayRate'] !== null ? $asset['assets_dayRate'] : $asset['assetTypes_dayRate'], new Currency($AUTH->data['instance']['instances_config_currency']))),
         $moneyFormatter->format(new Money($asset['assets_weekRate'] !== null ? $asset['assets_weekRate'] : $asset['assetTypes_weekRate'], new Currency($AUTH->data['instance']['instances_config_currency']))),
         $moneyFormatter->format(new Money($asset['assets_value'] !== null ? $asset['assets_value'] : $asset['assetTypes_value'], new Currency($AUTH->data['instance']['instances_config_currency']))),
@@ -72,7 +79,9 @@ foreach ($assets as $asset) {
     $spreadsheetRows[] = $array;
 }
 
-$headerRow = ["Asset Code", "Category", "Name", "Manufacturer", "Mass (kg)", "Day Rate", "Week Rate", "Value", "Location", "Notes"];
+$unitSystem = isset($CONFIG['UNITS_MASS']) ? $CONFIG['UNITS_MASS'] : $CONFIGCLASS->get('UNITS_MASS');
+$massUnit = ($unitSystem === 'Imperial') ? 'lbs' : 'kg';
+$headerRow = ["Asset Code", "Category", "Name", "Manufacturer", "Mass (" . $massUnit . ")", "Day Rate", "Week Rate", "Value", "Location", "Notes"];
 for ($x = 1; $x <= 10; $x++) {
     array_push($headerRow, "Definable Field " . $x . " Name", "Definable Field " . $x . " Value");
 }

@@ -6,6 +6,37 @@ use Money\Currency;
 use Money\Money;
 use Money\Formatter\IntlMoneyFormatter;
 
+// Ensure apiMass function is available
+if (!function_exists('apiMass')) {
+    function apiMass($variable)
+    {
+        global $CONFIG, $CONFIGCLASS;
+        $massInKg = (float)$variable;
+
+        // Get unit system with fallback to default
+        $unitSystem = 'Metric';
+        if (isset($CONFIG['UNITS_MASS'])) {
+            $unitSystem = $CONFIG['UNITS_MASS'];
+        } elseif (isset($CONFIGCLASS)) {
+            try {
+                $unitSystem = $CONFIGCLASS->get('UNITS_MASS');
+            } catch (Exception $e) {
+                $unitSystem = 'Metric'; // Default fallback
+            }
+        }
+
+        // Check if imperial units are enabled
+        if ($unitSystem === 'Imperial') {
+            // Convert kg to lbs (1 kg = 2.20462 lbs)
+            $massInLbs = $massInKg * 2.20462;
+            return number_format($massInLbs, 2, '.', '') . "lbs";
+        }
+
+        // Default to metric (kg)
+        return number_format($massInKg, 2, '.', '') . "kg";
+    }
+}
+
 $array = [];
 if (isset($_POST['formData'])) {
     foreach ($_POST['formData'] as $item) {
@@ -123,7 +154,7 @@ function projectFinancials($project) {
         $asset['formattedValue'] = $moneyFormatter->format($asset['value']);
         $asset['formattedPrice'] = $moneyFormatter->format($asset['price']);
         $asset['formattedDiscountPrice'] = $moneyFormatter->format($asset['discountPrice']);
-        $asset['formattedMass'] = number_format(($asset['assets_mass'] == null ? $asset['assetTypes_mass'] : $asset['assets_mass']), 2, '.', '') . "kg";
+        $asset['formattedMass'] = apiMass($asset['assets_mass'] == null ? $asset['assetTypes_mass'] : $asset['assets_mass']);
 
         $asset['flagsblocks'] = assetFlagsAndBlocks($asset['assets_id']);
 
@@ -152,7 +183,7 @@ function projectFinancials($project) {
         //formatted Totals
         $return['assetsAssigned'][$key]['totals']['formattedDiscountPrice'] = $moneyFormatter->format($return['assetsAssigned'][$key]['totals']['discountPrice']);
         $return['assetsAssigned'][$key]['totals']['formattedPrice'] = $moneyFormatter->format($return['assetsAssigned'][$key]['totals']['price']);
-        $return['assetsAssigned'][$key]['totals']['formattedMass'] = number_format($return['assetsAssigned'][$key]['totals']['mass'], 2, '.', '') . "kg";
+        $return['assetsAssigned'][$key]['totals']['formattedMass'] = apiMass($return['assetsAssigned'][$key]['totals']['mass']);
     }
     foreach ($return['assetsAssignedSUB'] as $instanceid => $instance) {
         if (!isset($return['assetsAssignedSUB'][$instanceid]['instance'])) {
@@ -171,7 +202,7 @@ function projectFinancials($project) {
             //Formatted totals
             $return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['formattedDiscountPrice'] = $moneyFormatter->format($return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['discountPrice']);
             $return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['formattedPrice'] = $moneyFormatter->format($return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['price']);
-            $return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['formattedMass'] = number_format($return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['mass'], 2, '.', '') . "kg";
+            $return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['formattedMass'] = apiMass($return['assetsAssignedSUB'][$instanceid]['assets'][$key]['totals']['mass']);
         }
     }
 
@@ -181,7 +212,6 @@ function projectFinancials($project) {
     //add formatted values to everything
     $return['formattedValue'] = $moneyFormatter->format($return['value']);
     $return['formattedPrices'] = ["subTotal" => $moneyFormatter->format($return['prices']['subTotal']), "discounts" => $moneyFormatter->format($return['prices']['discounts']), "total" => $moneyFormatter->format($return['prices']['total'])];
-    $return['formattedMass'] = number_format($return['mass'], 2, '.', '') . "kg";
     //format payments
     foreach ($return['payments'] as $key => $value) {
         if ($key == "subTotal") {

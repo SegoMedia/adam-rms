@@ -221,7 +221,51 @@ $TWIG->addFunction(new \Twig\TwigFunction('moneySymbol', function ($currency = f
     return $symbol;
 }));
 $TWIG->addFilter(new \Twig\TwigFilter('mass', function ($variable) {
-    return number_format((float)$variable, 2, '.', '') . "kg";
+    global $CONFIG, $CONFIGCLASS;
+    $massInKg = (float)$variable;
+
+    // Get unit system with fallback to default
+    $unitSystem = 'Metric';
+    if (isset($CONFIG['UNITS_MASS'])) {
+        $unitSystem = $CONFIG['UNITS_MASS'];
+    } elseif (isset($CONFIGCLASS)) {
+        try {
+            $unitSystem = $CONFIGCLASS->get('UNITS_MASS');
+        } catch (Exception $e) {
+            $unitSystem = 'Metric'; // Default fallback
+        }
+    }
+
+    // Check if imperial units are enabled
+    if ($unitSystem === 'Imperial') {
+        // Convert kg to lbs (1 kg = 2.20462 lbs)
+        $massInLbs = $massInKg * 2.20462;
+        return number_format($massInLbs, 2, '.', '') . "lbs";
+    }
+
+    // Default to metric (kg)
+    return number_format($massInKg, 2, '.', '') . "kg";
+}));
+$TWIG->addFunction(new \Twig\TwigFunction('massUnit', function () {
+    global $CONFIG, $CONFIGCLASS;
+
+    // Get unit system with fallback to default
+    $unitSystem = 'Metric';
+    if (isset($CONFIG['UNITS_MASS'])) {
+        $unitSystem = $CONFIG['UNITS_MASS'];
+    } elseif (isset($CONFIGCLASS)) {
+        try {
+            $unitSystem = $CONFIGCLASS->get('UNITS_MASS');
+        } catch (Exception $e) {
+            $unitSystem = 'Metric'; // Default fallback
+        }
+    }
+
+    // Return the unit label based on configuration
+    if ($unitSystem === 'Imperial') {
+        return 'lbs';
+    }
+    return 'kg';
 }));
 $TWIG->addFilter(new \Twig\TwigFilter('nbsp', function ($string) {
     return str_replace(" ","&nbsp;", $string);
