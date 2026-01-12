@@ -4,6 +4,9 @@ on:
     types: [published]
 jobs:
   build:
+    permissions:
+      packages: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
