@@ -105,35 +105,35 @@
                                                             <input type="hidden" name="clients_id" value="{{ client.clients_id }}"/>
                                                             <div class="input-group" style="margin-bottom: 5px;">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Name</span>
+                                                                    <label class="input-group-text" for="clients_name_{{ client.clients_id }}">Name</label>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="clients_name" value="{{ client.clients_name }}">
+                                                                <input type="text" class="form-control" name="clients_name" id="clients_name_{{ client.clients_id }}" value="{{ client.clients_name }}">
                                                             </div>
                                                             <div class="input-group" style="margin-bottom: 5px;">
-                                                                <div class="input-group-prepend"><span class="input-group-text">Address</span></div>
-                                                                <textarea class="form-control" rows="6" name="clients_address"  placeholder="">{{ client.clients_address }}</textarea>
+                                                                <div class="input-group-prepend"><label class="input-group-text" for="clients_address_{{ client.clients_id }}">Address</label></div>
+                                                                <textarea class="form-control" rows="6" name="clients_address" id="clients_address_{{ client.clients_id }}" placeholder="">{{ client.clients_address }}</textarea>
                                                             </div>
                                                             <div class="input-group" style="margin-bottom: 5px;">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Website</span>
+                                                                    <label class="input-group-text" for="clients_website_{{ client.clients_id }}">Website</label>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="clients_website" value="{{ client.clients_website }}">
+                                                                <input type="text" class="form-control" name="clients_website" id="clients_website_{{ client.clients_id }}" value="{{ client.clients_website }}">
                                                             </div>
                                                             <div class="input-group" style="margin-bottom: 5px;">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Phone</span>
+                                                                    <label class="input-group-text" for="clients_phone_{{ client.clients_id }}">Phone</label>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="clients_phone" value="{{ client.clients_phone }}">
+                                                                <input type="text" class="form-control" name="clients_phone" id="clients_phone_{{ client.clients_id }}" value="{{ client.clients_phone }}">
                                                             </div>
                                                             <div class="input-group" style="margin-bottom: 5px;">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Email</span>
+                                                                    <label class="input-group-text" for="clients_email_{{ client.clients_id }}">Email</label>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="clients_email" value="{{ client.clients_email }}">
+                                                                <input type="text" class="form-control" name="clients_email" id="clients_email_{{ client.clients_id }}" value="{{ client.clients_email }}">
                                                             </div>
                                                             <div class="input-group" style="margin-bottom: 5px;">
-                                                                <div class="input-group-prepend"><span class="input-group-text">Notes</span></div>
-                                                                <textarea class="form-control" rows="3" name="clients_notes"  placeholder="">{{ client.clients_notes }}</textarea>
+                                                                <div class="input-group-prepend"><label class="input-group-text" for="clients_notes_{{ client.clients_id }}">Notes</label></div>
+                                                                <textarea class="form-control" rows="3" name="clients_notes" id="clients_notes_{{ client.clients_id }}" placeholder="">{{ client.clients_notes }}</textarea>
                                                             </div>
                                                         </form>
                                                     </div>

@@ -27,16 +27,16 @@
             <div class="card-body">
                 <form id="addNewForm">
                     <div class="form-group">
-                        <label>Project Name *</label>
+                        <label for="projects_name">Project Name *</label>
                         <input type="text" class="form-control" id="projects_name" required />
                         <p class="invalid-feedback">Project Name is required</p>
                     </div>
                     <div class="form-group">
-                        <label>Project Description</label>
+                        <label for="projects_description">Project Description</label>
                         <textarea type="text" class="form-control" id="projects_description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Project Manager *</label>
+                        <label for="manager">Project Manager *</label>
                         <select class="form-control  select2bs4" id="manager" required>
                             {% for user in potentialProjectManagers %}
                                 <option {{ user.users_userid == USERDATA.users_userid ? "selected" : "" }} value="{{ user.users_userid }}">{{ (user.users_name1 ~ " " ~ user.users_name2) }}</option>
@@ -44,7 +44,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Project Type *</label>
+                        <label for="type">Project Type *</label>
                         <select class="form-control  select2bs4" id="type" required>
                             {% for type in potentialProjectTypes %}
                                 <option value="{{ type.projectsTypes_id }}">{{ type.projectsTypes_name }}</option>
@@ -52,7 +52,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Project Dates</label>
+                        <label for="datePickerInput">Project Dates</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-clock"></i></span>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Parent Project</label>
+                        <label for="parent">Parent Project</label>
                         <select class="form-control  select2bs4" id="parent" required aria-describedby="subprojectHelp">
                             <option value="-1">No Parent</option>
                             {% for project in projects %}

@@ -50,7 +50,7 @@
 							{{ FINANCIALS.payments.subHire.total|money }}
 						</td>
 					</tr>
-					<tr style="background-color: rgba(0,0,0,.03);">
+					<tr class="table-active">
                         <td style="width: 35%;"></td>
 						<td style="width: 15%;text-align: right;"></td>
 						<td style="width: 35%;">
@@ -168,7 +168,7 @@
 									{% set currentSupplier = payment.payments_supplier %}
 									{% if payment.payments_supplier != "" %}
 										<tr>
-											<td colspan="99" style="background-color: #F5F5F5;">
+											<td colspan="99" class="table-active">
 												<b>{{ payment.payments_supplier }}</b>
 											</td>
 										</tr>
@@ -239,7 +239,7 @@
 									{% set currentSupplier = payment.payments_supplier %}
 									{% if payment.payments_supplier != "" %}
 										<tr>
-											<td colspan="99" style="background-color: #F5F5F5;">
+											<td colspan="99" class="table-active">
 												<b>{{ payment.payments_supplier }}</b>
 											</td>
 										</tr>
