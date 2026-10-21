@@ -279,16 +279,16 @@
                                             <div class="active tab-pane" style="padding: 1.25rem" id="editAssetDetails">
                                                 <form id="editAssetDetailsForm">
                                                     <div class="input-group">
-                                                        <div class="input-group-prepend"><span class="input-group-text">Asset ID</span></div>
-                                                        <input class="form-control" name="assets_tag" value="{{ assets[0]['assets_tag'] }}" />
+                                                        <div class="input-group-prepend"><label for="assets_tag" class="input-group-text">Asset ID</label></div>
+                                                        <input class="form-control" id="assets_tag" name="assets_tag" value="{{ assets[0]['assets_tag'] }}" />
                                                     </div>
                                                     <div class="input-group">
-                                                        <div class="input-group-prepend"><span class="input-group-text">Asset Notes</span></div>
-                                                        <textarea class="form-control" rows="2" name="assets_notes" placeholder="">{{ assets[0]['assets_notes'] }}</textarea>
+                                                        <div class="input-group-prepend"><label for="assets_notes" class="input-group-text">Asset Notes</label></div>
+                                                        <textarea class="form-control" id="assets_notes" rows="2" name="assets_notes" placeholder="">{{ assets[0]['assets_notes'] }}</textarea>
                                                     </div>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text">Storage Location</span>
+                                                            <label for="editAssetStoredLocation" class="input-group-text">Storage Location</label>
                                                         </div>
                                                         <select class="form-control select2bs4" name="assets_storageLocation" id="editAssetStoredLocation">
                                                             {% if assets[0]['storage_location'] == [] %}
@@ -339,8 +339,8 @@
                                                     {% for field in asset.fields %}
                                                         {% if field != "" %}
                                                             <div class="input-group definableFieldsGroup" data-fieldcount="{{loop.index}}">
-                                                                <div class="input-group-prepend"><span class="input-group-text">{{field}}</span></div>
-                                                                <input type="text" class="definableFieldsInput form-control" name="asset_definableFields_{{ loop.index }}" value="{{ assets[0]['asset_definableFields_' ~ loop.index] }}" data-fieldcount="{{loop.index}}" />
+                                                                <div class="input-group-prepend"><label for="asset_definableFields_{{ loop.index }}" class="input-group-text">{{field}}</label></div>
+                                                                <input type="text" id="asset_definableFields_{{ loop.index }}" class="definableFieldsInput form-control" name="asset_definableFields_{{ loop.index }}" value="{{ assets[0]['asset_definableFields_' ~ loop.index] }}" data-fieldcount="{{loop.index}}" />
                                                             </div>
                                                         {% endif %}
                                                     {% endfor %}
@@ -355,39 +355,39 @@
                                                     <form id="editAssetDetailsOverridesForm">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                    <span class="input-group-text">
+                                                    <label for="assets_mass" class="input-group-text">
                                                       Mass
-                                                    </span>
+                                                    </label>
                                                             </div>
-                                                            <input type="number" step="0.001" min="0" name="assets_mass" value="{% if CONFIG.UNITS_MASS == 'Imperial' and assets[0].assets_mass %}{{ (assets[0].assets_mass * 2.20462)|round(3) }}{% else %}{{ assets[0].assets_mass }}{% endif %}" class="form-control" />
+                                                            <input type="number" id="assets_mass" step="0.001" min="0" name="assets_mass" value="{% if CONFIG.UNITS_MASS == 'Imperial' and assets[0].assets_mass %}{{ (assets[0].assets_mass * 2.20462)|round(3) }}{% else %}{{ assets[0].assets_mass }}{% endif %}" class="form-control" />
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">{{ massUnit() }}</div>
                                                             </div>
                                                         </div>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                    <span class="input-group-text">
+                                                    <label for="assets_value" class="input-group-text">
                                                       Value - {{ moneySymbol() }}
-                                                    </span>
+                                                    </label>
                                                             </div>
-                                                            <input type="number" step="0.001" min="0" name="assets_value" value="{{ assets[0].assets_value|moneyDecimal }}" class="form-control" />
+                                                            <input type="number" id="assets_value" step="0.001" min="0" name="assets_value" value="{{ assets[0].assets_value|moneyDecimal }}" class="form-control" />
                                                         </div>
 
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                    <span class="input-group-text">
+                                                    <label for="assets_dayRate" class="input-group-text">
                                                       Day Rate - {{ moneySymbol() }}
-                                                    </span>
+                                                    </label>
                                                             </div>
-                                                            <input type="number" step="0.001" min="0" name="assets_dayRate" value="{{ assets[0].assets_dayRate|moneyDecimal }}" class="form-control"  />
+                                                            <input type="number" id="assets_dayRate" step="0.001" min="0" name="assets_dayRate" value="{{ assets[0].assets_dayRate|moneyDecimal }}" class="form-control"  />
                                                         </div>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                            <span class="input-group-text">
+                                                            <label for="assets_weekRate" class="input-group-text">
                                                               Weekly Rate - {{ moneySymbol() }}
-                                                            </span>
+                                                            </label>
                                                             </div>
-                                                            <input type="number" step="0.001" min="0" name="assets_weekRate" class="form-control" value="{{ assets[0].assets_weekRate|moneyDecimal }}" />
+                                                            <input type="number" id="assets_weekRate" step="0.001" min="0" name="assets_weekRate" class="form-control" value="{{ assets[0].assets_weekRate|moneyDecimal }}" />
                                                         </div>
                                                     </form>
                                                     <button class="btn btn-default float-right" id="editAssetDetailsOverridesButton" style="margin-top:10px;margin-bottom:10px;">Save</button>
@@ -1040,22 +1040,22 @@
                                             </style>
                                             <form id="addNewForm">
                                             <div class="input-group">
-                                                <div class="input-group-prepend"><span class="input-group-text">Name</span></div>
+                                                <div class="input-group-prepend"><label for="addNewType-name" class="input-group-text">Name</label></div>
                                                 <input type="text" class="form-control" name="assetTypes_name" value="{{ asset.assetTypes_name}}" id="addNewType-name" />
                                             </div>
                                             <div class="input-group">
-                                                <div class="input-group-prepend"><span class="input-group-text">Description</span></div>
+                                                <div class="input-group-prepend"><label for="addNewType-description" class="input-group-text">Description</label></div>
                                                 <textarea class="form-control" rows="3" name="assetTypes_description" id="addNewType-description"  placeholder="">{{ asset.assetTypes_description}}</textarea>
                                             </div>
                                             <div class="input-group">
-                                                <div class="input-group-prepend"><span class="input-group-text">Product Link</span></div>
+                                                <div class="input-group-prepend"><label for="addNewType-productLink" class="input-group-text">Product Link</label></div>
                                                 <input type="url" class="form-control" name="assetTypes_productLink" value="{{ asset.assetTypes_productLink }}" id="addNewType-productLink" maxlength="499" />
                                             </div>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">
+                                                    <label for="addNewType-mass" class="input-group-text">
                                                       Mass
-                                                    </span>
+                                                    </label>
                                                 </div>
                                                 <input type="number" step="0.001" min="0" name="assetTypes_mass" value="{% if CONFIG.UNITS_MASS == 'Imperial' and asset.assetTypes_mass %}{{ (asset.assetTypes_mass * 2.20462)|round(3) }}{% else %}{{ asset.assetTypes_mass }}{% endif %}" class="form-control" id="addNewType-mass" />
                                                 <div class="input-group-append">
@@ -1064,18 +1064,18 @@
                                             </div>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">
+                                                    <label for="addNewType-value" class="input-group-text">
                                                       Value - {{ moneySymbol() }}
-                                                    </span>
+                                                    </label>
                                                 </div>
                                                 <input type="number" step="0.001" min="0" name="assetTypes_value" value="{{ asset.assetTypes_value|moneyDecimal }}" class="form-control" id="addNewType-value" />
                                             </div>
 
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">
+                                                    <label for="addNewType-dayRate" class="input-group-text">
                                                       Day Rate - {{ moneySymbol() }}
-                                                    </span>
+                                                    </label>
                                                 </div>
                                                 <input type="number" step="0.001" min="0" name="assetTypes_dayRate" value="{{ asset.assetTypes_dayRate|moneyDecimal }}" class="form-control" id="addNewType-dayRate" />
                                                 <div class="input-group-append">
@@ -1084,9 +1084,9 @@
                                             </div>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">
+                                                    <label for="addNewType-weekRate" class="input-group-text">
                                                       Weekly Rate - {{ moneySymbol() }}
-                                                    </span>
+                                                    </label>
                                                 </div>
                                                 <input type="number" step="0.001" min="0" name="assetTypes_weekRate" class="form-control" value="{{ asset.assetTypes_weekRate|moneyDecimal }}" id="addNewType-weekRate" />
                                                 <div class="input-group-append">
@@ -1117,8 +1117,8 @@
                                             <form id="editDefinableFieldsType">
                                             {% for field in asset.fields %}
                                                 <div class="input-group definableFieldsGroup" data-fieldcount="{{loop.index}}">
-                                                    <div class="input-group-prepend"><span class="input-group-text">Definable Field {{loop.index}}</span></div>
-                                                    <input type="text" class="definableFieldsInput form-control" name="asset_definableFields_{{ loop.index }}" value="{{field}}" data-fieldcount="{{loop.index}}" />
+                                                    <div class="input-group-prepend"><label for="asset_definableFields_type_{{ loop.index }}" class="input-group-text">Definable Field {{loop.index}}</label></div>
+                                                    <input type="text" id="asset_definableFields_type_{{ loop.index }}" class="definableFieldsInput form-control" name="asset_definableFields_{{ loop.index }}" value="{{field}}" data-fieldcount="{{loop.index}}" />
                                                 </div>
                                             {% endfor %}
                                             </form>
