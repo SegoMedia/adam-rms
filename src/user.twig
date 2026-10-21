@@ -103,54 +103,54 @@
                                 <form id="account-form">
                                     <div class="form-group">
                                         <label for="users_username">Username:</label>
-                                        <input type="text" id="users_username" class="form-control" name="users_username" required value="{{user['users_username']}}" />
+                                        <input type="username" class="form-control" name="users_username" id="users_username" required  value="{{user['users_username']}}" />
                                     </div>
                                     <div class="form-group">
                                         <label for="users_name1">First Name:</label>
-                                        <input type="text" id="users_name1" class="form-control" name="users_name1" required value="{{user['users_name1']}}" />
+                                        <input type="text" class="form-control" name="users_name1" id="users_name1" required value="{{user['users_name1']}}" />
                                     </div>
                                     <div class="form-group">
                                         <label for="users_name2">Last Name:</label>
-                                        <input type="text" id="users_name2" class="form-control" name="users_name2" required value="{{user['users_name2']}}" />
+                                        <input type="text" class="form-control" name="users_name2" id="users_name2" required  value="{{user['users_name2']}}" />
                                     </div>
                                     <div class="form-group">
                                         <label for="users_email">Email address:</label>
-                                        <input type="email" id="users_email" class="form-control" name="users_email" required value="{{user['users_email']}}" />
+                                        <input type="email" class="form-control" name="users_email" id="users_email" required value="{{user['users_email']}}" />
                                     </div>
                                     <p>Share links to your social media profiles to be displayed on your user profile page</p>
                                     <label for="users_social_facebook">Facebook</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label for="users_social_facebook" class="input-group-text">https://facebook.com/</label>
+                                            <label class="input-group-text" for="users_social_facebook">https://facebook.com/</label>
                                         </div>
-                                        <input id="users_social_facebook" type="text" class="form-control" name="users_social_facebook" value="{{ user.users_social_facebook }}">
+                                        <input type="text" class="form-control" name="users_social_facebook" id="users_social_facebook" value="{{ user.users_social_facebook }}">
                                     </div>
                                     <br/>
                                     <label for="users_social_twitter">Twitter</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label for="users_social_twitter" class="input-group-text">https://twitter.com/</label>
+                                            <label class="input-group-text" for="users_social_twitter">https://twitter.com/</label>
                                         </div>
-                                        <input id="users_social_twitter" type="text" class="form-control" name="users_social_twitter" value="{{ user.users_social_twitter }}">
+                                        <input type="text" class="form-control" name="users_social_twitter" id="users_social_twitter" value="{{ user.users_social_twitter }}">
                                     </div><br/>
                                     <label for="users_social_instagram">Instagram</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label for="users_social_instagram" class="input-group-text">https://instagram.com/</label>
+                                            <label class="input-group-text" for="users_social_instagram">https://instagram.com/</label>
                                         </div>
-                                        <input id="users_social_instagram" type="text" class="form-control" name="users_social_instagram" value="{{ user.users_social_instagram }}">
+                                        <input type="text" class="form-control" name="users_social_instagram" id="users_social_instagram" value="{{ user.users_social_instagram }}">
                                     </div><br/>
                                     <label for="users_social_linkedin">Linkedin</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label for="users_social_linkedin" class="input-group-text">https://linkedin.com/ln/</label>
+                                            <label class="input-group-text" for="users_social_linkedin">https://linkedin.com/ln/</label>
                                         </div>
-                                        <input id="users_social_linkedin" type="text" class="form-control" name="users_social_linkedin" value="{{ user.users_social_linkedin }}">
+                                        <input type="text" class="form-control" name="users_social_linkedin" id="users_social_linkedin" value="{{ user.users_social_linkedin }}">
                                     </div><br/>
                                     <label for="users_social_snapchat">Snapchat</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend"><label for="users_social_snapchat" class="input-group-text" aria-label="Snapchat username"><i class="fab fa-snapchat-ghost"></i></label></div>
-                                        <input id="users_social_snapchat" type="text" class="form-control" name="users_social_snapchat" value="{{ user.users_social_snapchat }}">
+                                        <div class="input-group-prepend"><label class="input-group-text" for="users_social_snapchat"><i class="fab fa-snapchat-ghost"></i></label></div>
+                                        <input type="text" class="form-control" name="users_social_snapchat" id="users_social_snapchat" value="{{ user.users_social_snapchat }}">
                                     </div><br/>
                                     <input type="hidden" name="users_userid" value="{{ user.users_userid }}" />
                                     <button type="submit" class="btn btn-default">Save</button>
@@ -243,12 +243,13 @@
                         <div class="tab-pane p-3" id="passwordsocial">
                             <h2>Password</h2>
                             <div class="form-group">
-                                <label for="username">Current Password</label>
+                                <label for="current_pass">Current Password</label>
                                 <input type="password" placeholder="Current Password" class="form-control" id="current_pass" />
                             </div>
                             <div class="form-group">
-                                <label for="username">New Password</label>
-                                <input type="password" placeholder="New Password (min. 12 characters)" class="form-control" id="passnew" /><br/>
+                                <label for="passnew">New Password</label>
+                                <input type="password" placeholder="New Password" class="form-control" id="passnew" /><br/>
+                                <label for="passconf" class="sr-only">Confirm New Password</label>
                                 <input type="password" placeholder="Confirm New Password" class="form-control" id="passconf" />
                                 <small class="form-text text-muted">Choose a strong, unique password. We recommend using a password manager such as <a href="https://bitwarden.com" target="_blank" rel="noopener noreferrer">Bitwarden</a> to generate and store secure passwords.</small>
                             </div>
