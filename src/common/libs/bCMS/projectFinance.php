@@ -7,11 +7,23 @@ class projectFinance
 {
   public function durationMathsByDates($start, $end)
   {
-    $start = strtotime(date("d F Y 00:00:00", strtotime($start)));
-    $end = strtotime(date("d F Y 23:59:59", strtotime($end)));
-    $diff = ceil(($end - $start) / 86400);
-    if ($diff < 1) $diff = 1;
-    return ["days" => $diff, "weeks" => 0, "calendarDays" => $diff];
+    try {
+      $startDate = new \DateTime($start);
+      $endDate = new \DateTime($end);
+    } catch (\Exception $e) {
+      return ["days" => 1, "weeks" => 0, "calendarDays" => 1];
+    }
+
+    $startDate->setTime(0, 0, 0);
+    $endDate->setTime(0, 0, 0);
+
+    if ($endDate < $startDate) {
+      $diff = 1;
+    } else {
+      $diff = $startDate->diff($endDate)->days + 1;
+    }
+
+    return ["days" => (int)$diff, "weeks" => 0, "calendarDays" => (int)$diff];
   }
   public function durationMaths($projects_id)
   {
