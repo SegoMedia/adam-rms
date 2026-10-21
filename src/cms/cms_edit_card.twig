@@ -7,20 +7,20 @@
 			<div class="card-tools pull-right">
 				<div class="btn-group btn-group-sm" role="group">
 					{% if card["type"] == "custom" or card["type"] == null %}
-						<button type="button" class="btn btn-default btn-sm editCardButton">
+						<button type="button" class="btn btn-default btn-sm editCardButton" aria-label="Edit card content" title="Edit card content">
 							<i class="fas fa-edit"></i>
 						</button>
 					{% endif %}
-					<button type="button" class="btn btn-default btn-sm editConfigButton">
+					<button type="button" class="btn btn-default btn-sm editConfigButton" aria-label="Edit card configuration" title="Edit card configuration">
 						<i class="fas fa-cog"></i>
 					</button>
-					<button type="button" class="btn btn-default btn-sm delete">
+					<button type="button" class="btn btn-default btn-sm delete" aria-label="Delete card" title="Delete card">
 						<i class="fas fa-trash"></i>
 					</button>
-					<button type="button" class="d-none d-sm-block btn btn-default btn-sm resize" data-type="shrink">
+					<button type="button" class="d-none d-sm-block btn btn-default btn-sm resize" data-type="shrink" aria-label="Shrink card" title="Shrink card">
 						<i class="fas fa-compress-arrows-alt"></i>
 					</button>
-					<button type="button" class="d-none d-sm-block btn btn-default btn-sm resize" data-type="expand">
+					<button type="button" class="d-none d-sm-block btn btn-default btn-sm resize" data-type="expand" aria-label="Expand card" title="Expand card">
 						<i class="fas fa-expand-arrows-alt"></i>
 					</button>
 				</div>
