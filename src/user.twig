@@ -102,55 +102,55 @@
                             <div class="tab-pane p-3" id="account">
                                 <form id="account-form">
                                     <div class="form-group">
-                                        <label for="username">Username:</label>
-                                        <input type="username" class="form-control" name="users_username" required  value="{{user['users_username']}}" />
+                                        <label for="users_username">Username:</label>
+                                        <input type="text" id="users_username" class="form-control" name="users_username" required value="{{user['users_username']}}" />
                                     </div>
                                     <div class="form-group">
-                                        <label>First Name:</label>
-                                        <input type="text" class="form-control" name="users_name1" required value="{{user['users_name1']}}" />
+                                        <label for="users_name1">First Name:</label>
+                                        <input type="text" id="users_name1" class="form-control" name="users_name1" required value="{{user['users_name1']}}" />
                                     </div>
                                     <div class="form-group">
-                                        <label>Last Name:</label>
-                                        <input type="text" class="form-control" name="users_name2" required  value="{{user['users_name2']}}" />
+                                        <label for="users_name2">Last Name:</label>
+                                        <input type="text" id="users_name2" class="form-control" name="users_name2" required value="{{user['users_name2']}}" />
                                     </div>
                                     <div class="form-group">
-                                        <label>Email address:</label>
-                                        <input type="email" class="form-control" name="users_email" required value="{{user['users_email']}}" />
+                                        <label for="users_email">Email address:</label>
+                                        <input type="email" id="users_email" class="form-control" name="users_email" required value="{{user['users_email']}}" />
                                     </div>
                                     <p>Share links to your social media profiles to be displayed on your user profile page</p>
-                                    <label>Facebook</label>
+                                    <label for="users_social_facebook">Facebook</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">https://facebook.com/</span>
+                                            <label class="input-group-text" for="users_social_facebook">https://facebook.com/</label>
                                         </div>
-                                        <input type="text" class="form-control" name="users_social_facebook" value="{{ user.users_social_facebook }}">
+                                        <input type="text" id="users_social_facebook" class="form-control" name="users_social_facebook" value="{{ user.users_social_facebook }}">
                                     </div>
                                     <br/>
-                                    <label>Twitter</label>
+                                    <label for="users_social_twitter">Twitter</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">https://twitter.com/</span>
+                                            <label class="input-group-text" for="users_social_twitter">https://twitter.com/</label>
                                         </div>
-                                        <input type="text" class="form-control" name="users_social_twitter" value="{{ user.users_social_twitter }}">
+                                        <input type="text" id="users_social_twitter" class="form-control" name="users_social_twitter" value="{{ user.users_social_twitter }}">
                                     </div><br/>
-                                    <label>Instagram</label>
+                                    <label for="users_social_instagram">Instagram</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">https://instagram.com/</span>
+                                            <label class="input-group-text" for="users_social_instagram">https://instagram.com/</label>
                                         </div>
-                                        <input type="text" class="form-control" name="users_social_instagram" value="{{ user.users_social_instagram }}">
+                                        <input type="text" id="users_social_instagram" class="form-control" name="users_social_instagram" value="{{ user.users_social_instagram }}">
                                     </div><br/>
-                                    <label>Linkedin</label>
+                                    <label for="users_social_linkedin">Linkedin</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">https://linkedin.com/ln/</span>
+                                            <label class="input-group-text" for="users_social_linkedin">https://linkedin.com/ln/</label>
                                         </div>
-                                        <input type="text" class="form-control" name="users_social_linkedin" value="{{ user.users_social_linkedin }}">
+                                        <input type="text" id="users_social_linkedin" class="form-control" name="users_social_linkedin" value="{{ user.users_social_linkedin }}">
                                     </div><br/>
-                                    <label>Snapchat</label>
+                                    <label for="users_social_snapchat">Snapchat</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fab fa-snapchat-ghost"></i></span></div>
-                                        <input type="text" class="form-control" name="users_social_snapchat" value="{{ user.users_social_snapchat }}">
+                                        <div class="input-group-prepend"><label class="input-group-text" for="users_social_snapchat"><i class="fab fa-snapchat-ghost" aria-label="Snapchat icon"></i></label></div>
+                                        <input type="text" id="users_social_snapchat" class="form-control" name="users_social_snapchat" value="{{ user.users_social_snapchat }}">
                                     </div><br/>
                                     <input type="hidden" name="users_userid" value="{{ user.users_userid }}" />
                                     <button type="submit" class="btn btn-default">Save</button>
