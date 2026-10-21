@@ -57,19 +57,19 @@
                                                             <input type="hidden" name="manufacturers_id" value="{{ manufacturer.manufacturers_id }}"/>
                                                             <div class="input-group" style="margin-bottom: 5px;">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Name</span>
+                                                                    <label class="input-group-text" for="manufacturers_name_{{ manufacturer.manufacturers_id }}">Name</label>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="manufacturers_name" value="{{ manufacturer.manufacturers_name }}" required>
+                                                                <input type="text" class="form-control" name="manufacturers_name" id="manufacturers_name_{{ manufacturer.manufacturers_id }}" value="{{ manufacturer.manufacturers_name }}" required>
                                                             </div>
                                                             <div class="input-group" style="margin-bottom: 5px;">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Website</span>
+                                                                    <label class="input-group-text" for="manufacturers_website_{{ manufacturer.manufacturers_id }}">Website</label>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="manufacturers_website" value="{{ manufacturer.manufacturers_website }}">
+                                                                <input type="text" class="form-control" name="manufacturers_website" id="manufacturers_website_{{ manufacturer.manufacturers_id }}" value="{{ manufacturer.manufacturers_website }}">
                                                             </div>
                                                             <div class="input-group" style="margin-bottom: 5px;">
-                                                                <div class="input-group-prepend"><span class="input-group-text">Notes</span></div>
-                                                                <textarea class="form-control" rows="3" name="manufacturers_notes"  placeholder="">{{ manufacturer.manufacturers_notes }}</textarea>
+                                                                <div class="input-group-prepend"><label class="input-group-text" for="manufacturers_notes_{{ manufacturer.manufacturers_id }}">Notes</label></div>
+                                                                <textarea class="form-control" rows="3" name="manufacturers_notes" id="manufacturers_notes_{{ manufacturer.manufacturers_id }}" placeholder="">{{ manufacturer.manufacturers_notes }}</textarea>
                                                             </div>
                                                         </form>
                                                     </div>
