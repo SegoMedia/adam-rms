@@ -18,9 +18,9 @@
             <div class="card-tools pull-right">
                 <div class="btn-group  btn-group-sm" role="group">
                     <button type="button" class="btn btn-default btn-sm" id="addNewCard" title="Add new Card">Add Card</button>
-                    <a type="button" class="btn btn-default btn-sm" title="Viewing Stats" href="{{ CONFIG.ROOTURL }}/cms/stats.php?p={{ PAGE.cmsPages_id }}"><i class="far fa-chart-bar"></i></a>
-                    <button type="button" class="btn btn-default btn-sm" title="Edit History" data-toggle="modal" data-target="#revisionHistoryModal"><i class="fas fa-history"></i></button>
-                    <button type="button" class="btn btn-success btn-sm" id="masterSave" title="Save"><i class="fas fa-save"></i></button>
+                    <a type="button" class="btn btn-default btn-sm" title="Viewing Stats" aria-label="Viewing Stats" href="{{ CONFIG.ROOTURL }}/cms/stats.php?p={{ PAGE.cmsPages_id }}"><i class="far fa-chart-bar"></i></a>
+                    <button type="button" class="btn btn-default btn-sm" title="Edit History" aria-label="Edit History" data-toggle="modal" data-target="#revisionHistoryModal"><i class="fas fa-history"></i></button>
+                    <button type="button" class="btn btn-success btn-sm" id="masterSave" title="Save" aria-label="Save"><i class="fas fa-save"></i></button>
                 </div>
             </div>
         </div>
@@ -155,8 +155,8 @@
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a type="button" class="btn btn-default btn-sm" title="Preview" href="{{ CONFIG.ROOTURL }}/cms/?p={{ PAGE.cmsPages_id }}&r={{ draft.cmsPagesDrafts_id }}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                                            <button type="button" class="btn btn-warning btn-sm restoreRevisionButton" data-id="{{ draft.cmsPagesDrafts_id }}" title="Rollback to this change"><i class="fas fa-history"></i></button>
+                                            <a type="button" class="btn btn-default btn-sm" title="Preview" aria-label="Preview" href="{{ CONFIG.ROOTURL }}/cms/?p={{ PAGE.cmsPages_id }}&r={{ draft.cmsPagesDrafts_id }}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                            <button type="button" class="btn btn-warning btn-sm restoreRevisionButton" aria-label="Rollback to this change" data-id="{{ draft.cmsPagesDrafts_id }}" title="Rollback to this change"><i class="fas fa-history"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -427,7 +427,7 @@
                 ajaxcall("cms/editPageContent.php", {"pageData": data,"cmsPages_id":"{{ PAGE.cmsPages_id }}","changelog":changelog}, function (response) {
                     //Add to revision list
                     lastSaveData = data;
-                    $("#revisionTableBody").prepend('<tr><td>v' + response.response.revision + '</td><td>{{ USERDATA.users_name1 ~ " " ~ USERDATA.users_name2 }}</td><td><i>Just now</i></td><td>' + changelog + '</td><td><div class="btn-group btn-group-sm" role="group"><a type="button" class="btn btn-default btn-sm" title="Preview" href="{{ CONFIG.ROOTURL }}/cms/?p={{ PAGE.cmsPages_id }}&r=' + response.response.revisionID + '" target="_blank"><i class="fas fa-external-link-alt"></i></a><button type="button" class="btn btn-warning btn-sm restoreRevisionButton" data-id="' + response.response.revisionID + '" title="Rollback to this change"><i class="fas fa-history"></i></button></div></td></tr>');
+                    $("#revisionTableBody").prepend('<tr><td>v' + response.response.revision + '</td><td>{{ USERDATA.users_name1 ~ " " ~ USERDATA.users_name2 }}</td><td><i>Just now</i></td><td>' + changelog + '</td><td><div class="btn-group btn-group-sm" role="group"><a type="button" class="btn btn-default btn-sm" title="Preview" aria-label="Preview" href="{{ CONFIG.ROOTURL }}/cms/?p={{ PAGE.cmsPages_id }}&r=' + response.response.revisionID + '" target="_blank"><i class="fas fa-external-link-alt"></i></a><button type="button" class="btn btn-warning btn-sm restoreRevisionButton" aria-label="Rollback to this change" data-id="' + response.response.revisionID + '" title="Rollback to this change"><i class="fas fa-history"></i></button></div></td></tr>');
                 });
             }
             function generateSave() {

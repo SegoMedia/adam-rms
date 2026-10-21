@@ -26,7 +26,7 @@
                         {% else %}
                             <a href="?archive=1" type="button" class="btn btn-default  btn-sm">View Archived Pages</a>
                         {% endif %}
-                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editModalNEW" aria-label="Create new Page"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" aria-label="Create New Page" data-toggle="modal" data-target="#editModalNEW"><i class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
@@ -48,9 +48,9 @@
                             <tr>
                                 <td>
                                     {% if "CMS:CMS_PAGES:EDIT"|instancePermissions %}
-                                    <span class="handle">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        <i class="fas fa-ellipsis-v"></i>
+                                    <span class="handle" aria-label="Drag handle" tabindex="0">
+                                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                                    </span>
                                     {% endif %}
                                 </td>
@@ -91,8 +91,8 @@
                                     <div class="btn-group">
                                         <a type="button" class="btn btn-default btn-sm" title="Viewing Stats" aria-label="Viewing Stats" href="{{ CONFIG.ROOTURL }}/cms/stats.php?p={{ page.cmsPages_id }}"><i class="far fa-chart-bar"></i></a>
                                         {% if "CMS:CMS_PAGES:EDIT"|instancePermissions %}
-                                            <a href="{{ CONFIG.ROOTURL }}/cms/edit.php?p={{ page.cmsPages_id }}" type="button" class="btn btn-default btn-sm" title="Edit" aria-label="Edit"><i class="fas fa-edit"></i></a>
-                                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal{{ page.cmsPages_id }}" title="Settings" aria-label="Settings"><i class="fas fa-cog"></i></button>
+                                            <a href="{{ CONFIG.ROOTURL }}/cms/edit.php?p={{ page.cmsPages_id }}" type="button" class="btn btn-default btn-sm" aria-label="Edit"><i class="fas fa-edit"></i></a>
+                                            <button type="button" class="btn btn-secondary btn-sm" aria-label="Settings" data-toggle="modal" data-target="#editModal{{ page.cmsPages_id }}"><i class="fas fa-cog"></i></button>
                                             {% if page.cmsPages_archived == 0 %}
                                             <button type="button" class="btn btn-danger btn-sm archiveButton" title="Archive" aria-label="Archive" data-id="{{ page.cmsPages_id }}"><i class="fas fa-archive"></i></button>
                                             {% else %}
@@ -144,8 +144,8 @@
                                         <div class="btn-group">
                                             <a type="button" class="btn btn-default btn-sm" title="Viewing Stats" aria-label="Viewing Stats" href="{{ CONFIG.ROOTURL }}/cms/stats.php?p={{ page.cmsPages_id }}"><i class="far fa-chart-bar"></i></a>
                                             {% if "CMS:CMS_PAGES:EDIT"|instancePermissions %}
-                                                <a href="{{ CONFIG.ROOTURL }}/cms/edit.php?p={{ page.cmsPages_id }}" type="button" class="d-none d-sm-block btn btn-default btn-sm" title="Edit" aria-label="Edit"><i class="fas fa-edit"></i></a>
-                                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal{{ page.cmsPages_id }}" title="Settings" aria-label="Settings"><i class="fas fa-cog"></i></button>
+                                                <a href="{{ CONFIG.ROOTURL }}/cms/edit.php?p={{ page.cmsPages_id }}" type="button" aria-label="Edit" class="d-none d-sm-block btn btn-default btn-sm"><i class="fas fa-edit"></i></a>
+                                                <button type="button" class="btn btn-secondary btn-sm" aria-label="Settings" data-toggle="modal" data-target="#editModal{{ page.cmsPages_id }}"><i class="fas fa-cog"></i></button>
                                                 {% if page.cmsPages_archived == 0 %}
                                                     <button type="button" class="btn btn-danger btn-sm archiveButton" title="Archive" aria-label="Archive" data-id="{{ page.cmsPages_id }}"><i class="fas fa-archive"></i></button>
                                                 {% else %}
@@ -183,22 +183,22 @@
                                     <input type="hidden" name="cmsPages_id" value="{{ page.cmsPages_id }}"/>
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cmsPages_name_{{ page.cmsPages_id }}">Name</label>
+                                            <label for="cmsPages_name_edit_{{ page.cmsPages_id }}" class="input-group-text">Name</label>
                                         </div>
-                                        <input id="cmsPages_name_{{ page.cmsPages_id }}" required type="text" class="form-control" placeholder="Lowering Instructions" name="cmsPages_name" value="{{ page.cmsPages_name }}">
+                                        <input id="cmsPages_name_edit_{{ page.cmsPages_id }}" required type="text" class="form-control" placeholder="Lowering Instructions" name="cmsPages_name" value="{{ page.cmsPages_name }}">
                                     </div>
 
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cmsPages_description_{{ page.cmsPages_id }}">Description</label>
+                                            <label for="cmsPages_description_edit_{{ page.cmsPages_id }}" class="input-group-text">Description</label>
                                         </div>
-                                        <textarea id="cmsPages_description_{{ page.cmsPages_id }}" type="text" class="form-control" placeholder="Instructions on how to lower the drum revolve" name="cmsPages_description" rows="2">{{ page.cmsPages_description }}</textarea>
+                                        <textarea id="cmsPages_description_edit_{{ page.cmsPages_id }}" type="text" class="form-control" placeholder="Instructions on how to lower the drum revolve" name="cmsPages_description" rows="2">{{ page.cmsPages_description }}</textarea>
                                     </div>
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cmsPages_fontAwesome_{{ page.cmsPages_id }}">Icon</label>
+                                            <label for="cmsPages_fontAwesome_edit_{{ page.cmsPages_id }}" class="input-group-text">Icon</label>
                                         </div>
-                                            <select id="cmsPages_fontAwesome_{{ page.cmsPages_id }}" class="form-control rms-icon-picker" name="cmsPages_fontAwesome">
+                                            <select id="cmsPages_fontAwesome_edit_{{ page.cmsPages_id }}" class="form-control rms-icon-picker" name="cmsPages_fontAwesome">
                                                 {% if page.cmsPages_fontAwesome %}
                                                     <option value="{{ page.cmsPages_fontAwesome }}"></option>
                                                 {% endif %}

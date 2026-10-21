@@ -93,7 +93,7 @@
                         {% if user.users_userid == USERDATA.users_userid %}
                         <li class="nav-item"><a class="nav-link" href="#export" data-toggle="tab">Export Calendar</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link active" href="#calendar" data-toggle="tab"><i class="far fa-calendar-alt"></i></a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#calendar" aria-label="Calendar" data-toggle="tab"><i class="far fa-calendar-alt"></i></a></li>
                     </ul>
                 </div><!-- /.card-header -->
                 <div class="card-body" style="padding: 0;">
@@ -121,36 +121,36 @@
                                     <label for="users_social_facebook">Facebook</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="users_social_facebook">https://facebook.com/</label>
+                                            <label for="users_social_facebook" class="input-group-text">https://facebook.com/</label>
                                         </div>
-                                        <input type="text" id="users_social_facebook" class="form-control" name="users_social_facebook" value="{{ user.users_social_facebook }}">
+                                        <input id="users_social_facebook" type="text" class="form-control" name="users_social_facebook" value="{{ user.users_social_facebook }}">
                                     </div>
                                     <br/>
                                     <label for="users_social_twitter">Twitter</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="users_social_twitter">https://twitter.com/</label>
+                                            <label for="users_social_twitter" class="input-group-text">https://twitter.com/</label>
                                         </div>
-                                        <input type="text" id="users_social_twitter" class="form-control" name="users_social_twitter" value="{{ user.users_social_twitter }}">
+                                        <input id="users_social_twitter" type="text" class="form-control" name="users_social_twitter" value="{{ user.users_social_twitter }}">
                                     </div><br/>
                                     <label for="users_social_instagram">Instagram</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="users_social_instagram">https://instagram.com/</label>
+                                            <label for="users_social_instagram" class="input-group-text">https://instagram.com/</label>
                                         </div>
-                                        <input type="text" id="users_social_instagram" class="form-control" name="users_social_instagram" value="{{ user.users_social_instagram }}">
+                                        <input id="users_social_instagram" type="text" class="form-control" name="users_social_instagram" value="{{ user.users_social_instagram }}">
                                     </div><br/>
                                     <label for="users_social_linkedin">Linkedin</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="users_social_linkedin">https://linkedin.com/ln/</label>
+                                            <label for="users_social_linkedin" class="input-group-text">https://linkedin.com/ln/</label>
                                         </div>
-                                        <input type="text" id="users_social_linkedin" class="form-control" name="users_social_linkedin" value="{{ user.users_social_linkedin }}">
+                                        <input id="users_social_linkedin" type="text" class="form-control" name="users_social_linkedin" value="{{ user.users_social_linkedin }}">
                                     </div><br/>
                                     <label for="users_social_snapchat">Snapchat</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend"><label class="input-group-text" for="users_social_snapchat"><i class="fab fa-snapchat-ghost" aria-label="Snapchat icon"></i></label></div>
-                                        <input type="text" id="users_social_snapchat" class="form-control" name="users_social_snapchat" value="{{ user.users_social_snapchat }}">
+                                        <div class="input-group-prepend"><label for="users_social_snapchat" class="input-group-text" aria-label="Snapchat username"><i class="fab fa-snapchat-ghost"></i></label></div>
+                                        <input id="users_social_snapchat" type="text" class="form-control" name="users_social_snapchat" value="{{ user.users_social_snapchat }}">
                                     </div><br/>
                                     <input type="hidden" name="users_userid" value="{{ user.users_userid }}" />
                                     <button type="submit" class="btn btn-default">Save</button>
@@ -360,8 +360,8 @@
                                             </td>#}
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" title="Delete" data-positionid="{{ position.userPositions_id }}" class="btn btn-danger deletePermissionEdit"><i class="fa fa-trash"></i></button>
-                                                    <button type="button" title="Save" data-positionid="{{ position.userPositions_id }}" class="btn btn-default savePermissionEdit"><i class="fa fa-save"></i></button>
+                                                    <button type="button" title="Delete" aria-label="Delete Position" data-positionid="{{ position.userPositions_id }}" class="btn btn-danger deletePermissionEdit"><i class="fa fa-trash"></i></button>
+                                                    <button type="button" title="Save" aria-label="Save Position" data-positionid="{{ position.userPositions_id }}" class="btn btn-default savePermissionEdit"><i class="fa fa-save"></i></button>
                                                 </div>
                                             </td>
                                         {% else %}
@@ -408,7 +408,7 @@
                                             </div>
                                         </td> #}
                                         <td>
-                                            <button type="button" title="Save" data-positionid="new" class="btn btn-default savePermissionEdit"><i class="fa fa-plus"></i></button>
+                                            <button type="button" title="Save" aria-label="Add Position" data-positionid="new" class="btn btn-default savePermissionEdit"><i class="fa fa-plus"></i></button>
                                         </td>
                                     </tr>
                                 {% endif %}
