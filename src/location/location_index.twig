@@ -173,27 +173,27 @@
                             <input type="hidden" name="locations_id" value="{{ location.locations_id }}"/>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Name</span>
+                                    <label class="input-group-text" for="edit_locations_name_{{ location.locations_id }}">Name</label>
                                 </div>
-                                <input required type="text" class="form-control" name="locations_name" value="{{ location.locations_name }}">
+                                <input id="edit_locations_name_{{ location.locations_id }}" required type="text" class="form-control" name="locations_name" value="{{ location.locations_name }}">
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Address</span>
+                                    <label class="input-group-text" for="edit_locations_address_{{ location.locations_id }}">Address</label>
                                 </div>
-                                <textarea type="text" class="form-control" name="locations_address" rows="6">{{ location.locations_address }}</textarea>
+                                <textarea id="edit_locations_address_{{ location.locations_id }}" type="text" class="form-control" name="locations_address" rows="6">{{ location.locations_address }}</textarea>
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Notes</span>
+                                    <label class="input-group-text" for="edit_locations_notes_{{ location.locations_id }}">Notes</label>
                                 </div>
-                                <textarea type="text" class="form-control" name="locations_notes" rows="3">{{ location.locations_notes }}</textarea>
+                                <textarea id="edit_locations_notes_{{ location.locations_id }}" type="text" class="form-control" name="locations_notes" rows="3">{{ location.locations_notes }}</textarea>
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Client</span>
+                                    <label class="input-group-text" for="edit_locations_client_{{ location.locations_id }}">Client</label>
                                 </div>
-                                <select class="form-control" name="clients_id">
+                                <select id="edit_locations_client_{{ location.locations_id }}" class="form-control" name="clients_id">
                                     <option></option>
                                     {% for client in clients %}
                                         <option value="{{ client.clients_id }}" {%  if location.clients_id == client.clients_id %}selected{% endif %}>{{ client.clients_name }}</option>
@@ -202,9 +202,9 @@
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Sub Location of</span>
+                                    <label class="input-group-text" for="edit_locations_subOf_{{ location.locations_id }}">Sub Location of</label>
                                 </div>
-                                <select class="form-control" name="locations_subOf">
+                                <select id="edit_locations_subOf_{{ location.locations_id }}" class="form-control" name="locations_subOf">
                                     <option></option>
                                     {% for sublocation in allLocations %}
                                         {% if sublocation.locations_id != location.locations_id %}

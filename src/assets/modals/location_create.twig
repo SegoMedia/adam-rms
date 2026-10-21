@@ -12,27 +12,27 @@
                   <form id="newForm">
                       <div class="input-group" style="margin-bottom: 5px;">
                           <div class="input-group-prepend">
-                              <span class="input-group-text">Name</span>
+                              <label class="input-group-text" for="create_locations_name">Name</label>
                           </div>
-                          <input required type="text" class="form-control" name="locations_name">
+                          <input id="create_locations_name" required type="text" class="form-control" name="locations_name">
                       </div>
                       <div class="input-group" style="margin-bottom: 5px;">
                           <div class="input-group-prepend">
-                              <span class="input-group-text">Address</span>
+                              <label class="input-group-text" for="create_locations_address">Address</label>
                           </div>
-                          <textarea type="text" class="form-control" name="locations_address" rows="6"></textarea>
+                          <textarea id="create_locations_address" type="text" class="form-control" name="locations_address" rows="6"></textarea>
                       </div>
                       <div class="input-group" style="margin-bottom: 5px;">
                           <div class="input-group-prepend">
-                              <span class="input-group-text">Notes</span>
+                              <label class="input-group-text" for="create_locations_notes">Notes</label>
                           </div>
-                          <textarea type="text" class="form-control" name="locations_notes" rows="3"></textarea>
+                          <textarea id="create_locations_notes" type="text" class="form-control" name="locations_notes" rows="3"></textarea>
                       </div>
                       <div class="input-group" style="margin-bottom: 5px;">
                           <div class="input-group-prepend">
-                              <span class="input-group-text">Client</span>
+                              <label class="input-group-text" for="create_locations_client">Client</label>
                           </div>
-                          <select class="form-control" name="clients_id">
+                          <select id="create_locations_client" class="form-control" name="clients_id">
                               <option selected></option>
                               {% for client in clients %}
                                   <option value="{{ client.clients_id }}">{{ client.clients_name }}</option>
@@ -41,9 +41,9 @@
                       </div>
                       <div class="input-group" style="margin-bottom: 5px;">
                           <div class="input-group-prepend">
-                              <span class="input-group-text">Sub Location of</span>
+                              <label class="input-group-text" for="create_locations_subOf">Sub Location of</label>
                           </div>
-                          <select class="form-control" name="locations_subOf">
+                          <select id="create_locations_subOf" class="form-control" name="locations_subOf">
                               <option selected></option>
                               {% for location in allLocations %}
                               <option value="{{ location.locations_id }}">{{ location.locations_name }}</option>
