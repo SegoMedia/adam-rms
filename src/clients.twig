@@ -84,11 +84,11 @@
                                     {% if "CLIENTS:EDIT"|instancePermissions %}
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#clientModal{{ client.clients_id }}" aria-label="Edit {{ client.clients_name }}" title="Edit Client"><i class="fas fa-edit"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#clientModal{{ client.clients_id }}" aria-label="Edit Client" title="Edit Client"><i class="fas fa-edit"></i></button>
                                             {% if not(showArchived) %}
-                                                <button type="button" class="btn btn-warning btn-sm archiveButton" data-id="{{ client.clients_id }}" aria-label="Archive {{ client.clients_name }}" title="Archive Client"><i class="fas fa-archive"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm archiveButton" data-id="{{ client.clients_id }}" aria-label="Archive Client" title="Archive Client"><i class="fas fa-archive"></i></button>
                                             {% else %}
-                                                <button type="button" class="btn btn-success btn-sm unarchiveButton" data-id="{{ client.clients_id }}" aria-label="Restore {{ client.clients_name }}" title="Restore Client"><i class="fas fa-archive"></i></button>
+                                                <button type="button" class="btn btn-success btn-sm unarchiveButton" data-id="{{ client.clients_id }}" aria-label="Unarchive Client" title="Unarchive Client"><i class="fas fa-archive"></i></button>
                                             {% endif %}
                                         </div>
                                         <div class="modal fade" id="clientModal{{ client.clients_id }}">
