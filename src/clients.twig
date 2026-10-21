@@ -32,11 +32,11 @@
                                     <a href="?archive" type="button" class="btn btn-default">Show archived Clients</a>
                                 {% endif %}
                             </div>
-                            <input type="text" name="q" class="form-control" placeholder="Search" value="{{ search }}" />
+                            <input type="text" name="q" class="form-control" placeholder="Search" value="{{ search }}" aria-label="Search clients" />
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-default" title="Search" aria-label="Search"><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-default" aria-label="Search" title="Search"><i class="fa fa-search"></i></button>
                                 {% if "CLIENTS:CREATE"|instancePermissions %}
-                                <button type="button" class="btn btn-default" id="newClientButton" title="New Client" aria-label="New Client"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-default" id="newClientButton" aria-label="New Client" title="New Client"><i class="fa fa-plus"></i></button>
                                 {% endif %}
                             </div>
 
@@ -70,7 +70,7 @@
                                     </td>
                                     <td>
                                         {% if client.clients_address %}
-                                            <a class="btn btn-default btn-sm" href="https://www.google.com/maps/search/?api=1&query={{ client.clients_address|replace({ "\r\n":', ', "\n":', ', "\r":', '})|url_encode }}" target="_blank" title="View on Google Maps" aria-label="View on Google Maps">
+                                            <a class="btn btn-default btn-sm" href="https://www.google.com/maps/search/?api=1&query={{ client.clients_address|replace({ "\r\n":', ', "\n":', ', "\r":', '})|url_encode }}" target="_blank" title="Google Maps" aria-label="Open Google Maps for {{ client.clients_name }}">
                                                 <i class="fas fa-map-marked-alt"></i>
                                             </a>
                                         {% endif %}
@@ -84,11 +84,11 @@
                                     {% if "CLIENTS:EDIT"|instancePermissions %}
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#clientModal{{ client.clients_id }}" title="Edit Client" aria-label="Edit Client"><i class="fas fa-edit"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#clientModal{{ client.clients_id }}" aria-label="Edit {{ client.clients_name }}" title="Edit Client"><i class="fas fa-edit"></i></button>
                                             {% if not(showArchived) %}
-                                                <button type="button" class="btn btn-warning btn-sm archiveButton" data-id="{{ client.clients_id }}" title="Archive Client" aria-label="Archive Client"><i class="fas fa-archive"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm archiveButton" data-id="{{ client.clients_id }}" aria-label="Archive {{ client.clients_name }}" title="Archive Client"><i class="fas fa-archive"></i></button>
                                             {% else %}
-                                                <button type="button" class="btn btn-success btn-sm unarchiveButton" data-id="{{ client.clients_id }}" title="Restore Client" aria-label="Restore Client"><i class="fas fa-archive"></i></button>
+                                                <button type="button" class="btn btn-success btn-sm unarchiveButton" data-id="{{ client.clients_id }}" aria-label="Restore {{ client.clients_name }}" title="Restore Client"><i class="fas fa-archive"></i></button>
                                             {% endif %}
                                         </div>
                                         <div class="modal fade" id="clientModal{{ client.clients_id }}">
