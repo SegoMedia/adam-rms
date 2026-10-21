@@ -13,16 +13,14 @@ if (isset($_POST['assetTypes_id'])) $DBLIB->where("assetTypes.assetTypes_id", $_
 $DBLIB->orderBy("assetCategories.assetCategories_id", "ASC");
 $DBLIB->orderBy("assetTypes.assetTypes_name", "ASC");
 $DBLIB->join("manufacturers", "manufacturers.manufacturers_id=assetTypes.manufacturers_id", "LEFT");
-$DBLIB->where("((SELECT COUNT(*) FROM assets WHERE assetTypes.assetTypes_id=assets.assetTypes_id AND assets.instances_id = '" . $AUTH->data['instance']['instances_id'] . "' AND (assets.assets_endDate IS NULL OR assets.assets_endDate >= CURRENT_TIMESTAMP()) AND assets_deleted = 0" . (!isset($_POST['all']) ? ' AND assets.assets_linkedTo IS NULL' : '') .") > 0)");
+$subqueryAll = (!isset($_POST['all']) ? ' AND assets.assets_linkedTo IS NULL' : '');
+$DBLIB->where("((SELECT COUNT(*) FROM assets WHERE assetTypes.assetTypes_id=assets.assetTypes_id AND assets.instances_id = ? AND (assets.assets_endDate IS NULL OR assets.assets_endDate >= CURRENT_TIMESTAMP()) AND assets_deleted = 0" . $subqueryAll . ") > 0)", [$AUTH->data['instance']['instances_id']]);
 $DBLIB->join("assetCategories", "assetCategories.assetCategories_id=assetTypes.assetCategories_id", "LEFT");
 $DBLIB->join("assetCategoriesGroups", "assetCategoriesGroups.assetCategoriesGroups_id=assetCategories.assetCategoriesGroups_id", "LEFT");
 if (strlen($PAGEDATA['search']) > 0) {
     //Search
-    $DBLIB->where("(
-		manufacturers_name LIKE '%" . $bCMS->sanitizeStringMYSQL($PAGEDATA['search']) . "%' OR
-		assetTypes_description LIKE '%" . $bCMS->sanitizeStringMYSQL($PAGEDATA['search']) . "%' OR
-		assetTypes_name LIKE '%" . $bCMS->sanitizeStringMYSQL($PAGEDATA['search']) . "%' 
-    )");
+    $searchTerm = "%" . $PAGEDATA['search'] . "%";
+    $DBLIB->where("(manufacturers_name LIKE ? OR assetTypes_description LIKE ? OR assetTypes_name LIKE ?)", [$searchTerm, $searchTerm, $searchTerm]);
 }
 $assets = $DBLIB->arraybuilder()->paginate('assetTypes', $page, ["assetTypes.*", "manufacturers.*", "assetCategories.*", "assetCategoriesGroups_name"]);
 $PAGEDATA['pagination'] = ["page" => $page, "total" => $DBLIB->totalPages];
@@ -106,6 +104,26 @@ finish(true, null, ["assets" => $PAGEDATA['assets'], "pagination" => $PAGEDATA['
  *             ),
  *         ),
  *     ), 
+ *     @OA\Response(
+ *         response="default",
+ *         description="Error",
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 type="object",
+ *                 @OA\Property(
+ *                     property="result",
+ *                     type="boolean",
+ *                     description="Whether the request was successful",
+ *                 ),
+ *                 @OA\Property(
+ *                     property="error",
+ *                     type="array",
+ *                     description="An Array containing an error code and a message",
+ *                 ),
+ *             ),
+ *         ),
+ *     ),
  *     @OA\Parameter(
  *         name="term",
  *         in="query",

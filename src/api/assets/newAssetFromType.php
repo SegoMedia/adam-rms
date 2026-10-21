@@ -11,7 +11,7 @@ if (strlen($array['assetTypes_id']) < 1) finish(false, ["code" => "PARAM-ERROR",
 $array['instances_id'] = $AUTH->data['instance']['instances_id'];
 $array['assets_inserted'] = date('Y-m-d H:i:s');
 
-$DBLIB->where("(assetTypes.instances_id IS NULL OR assetTypes.instances_id = '" . $AUTH->data['instance']['instances_id'] . "')");
+$DBLIB->where("(assetTypes.instances_id IS NULL OR assetTypes.instances_id = ?)", [$AUTH->data['instance']['instances_id']]);
 $DBLIB->where("assetTypes_id", $array['assetTypes_id']);
 $asset = $DBLIB->getone("assetTypes");
 if (!$asset) finish(false, ["code" => "LIST-ASSETTYPES-FAIL", "message" => "Could not find asset type"]);
