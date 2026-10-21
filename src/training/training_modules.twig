@@ -154,27 +154,27 @@
                             <input type="hidden" name="modules_id" value="{{ module.modules_id }}"/>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Name</span>
+                                    <label class="input-group-text" for="modules_name_{{ module.modules_id }}">Name</label>
                                 </div>
-                                <input required type="text" class="form-control" name="modules_name" value="{{ module.modules_name }}">
+                                <input id="modules_name_{{ module.modules_id }}" required type="text" class="form-control" name="modules_name" value="{{ module.modules_name }}">
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Description</span>
+                                    <label class="input-group-text" for="modules_description_{{ module.modules_id }}">Description</label>
                                 </div>
-                                <textarea type="text" class="form-control" name="modules_description" rows="4">{{ module.modules_description }}</textarea>
+                                <textarea id="modules_description_{{ module.modules_id }}" type="text" class="form-control" name="modules_description" rows="4">{{ module.modules_description }}</textarea>
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Learning Objectives</span>
+                                    <label class="input-group-text" for="modules_learningObjectives_{{ module.modules_id }}">Learning Objectives</label>
                                 </div>
-                                <textarea type="text" class="form-control" name="modules_learningObjectives" rows="8">{{ module.modules_learningObjectives }}</textarea>
+                                <textarea id="modules_learningObjectives_{{ module.modules_id }}" type="text" class="form-control" name="modules_learningObjectives" rows="8">{{ module.modules_learningObjectives }}</textarea>
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Type</span>
+                                    <label class="input-group-text" for="modules_type_{{ module.modules_id }}">Type</label>
                                 </div>
-                                <select name="modules_type" class="form-control" value="{{ module.modules_type }}">
+                                <select id="modules_type_{{ module.modules_id }}" name="modules_type" class="form-control" value="{{ module.modules_type }}">
                                     <option value="1" {{ module.modules_type == 1 ? 'selected' }}>Online: Users complete the module online, entirely by themselves</option>
                                     <option value="2" {{ module.modules_type == 2 ? 'selected' }}>Hybrid: Users complete the module online, and are then certified by an administrator</option>
                                     <option value="3" {{ module.modules_type == 3 ? 'selected' }}>Physical: Users cannot complete the module themselves - they are certified by an administrator</option>
@@ -183,9 +183,9 @@
                             <hr/>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Publish in the module catalogue to be completed by users</span>
+                                    <label class="input-group-text" for="modules_show_{{ module.modules_id }}">Publish in the module catalogue to be completed by users</label>
                                 </div>
-                                <input required type="checkbox" class="form-control" name="modules_show" {{ module.modules_show == 1 ? 'checked' : ''}}>
+                                <input id="modules_show_{{ module.modules_id }}" required type="checkbox" class="form-control" name="modules_show" {{ module.modules_show == 1 ? 'checked' : ''}}>
                             </div>
                             <div class="form-group">
                                 <label>Limit visibility to:</label>

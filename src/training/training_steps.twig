@@ -101,27 +101,27 @@
                                 <input type="hidden" name="modules_id" value="{{ module.modules_id }}" />
                                 <div class="input-group" style="margin-bottom: 5px;">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Title</span>
+                                        <label class="input-group-text" for="new_modulesSteps_name">Title</label>
                                     </div>
-                                    <input required type="text" class="form-control" name="modulesSteps_name" required>
+                                    <input id="new_modulesSteps_name" required type="text" class="form-control" name="modulesSteps_name" required>
                                 </div>
                                 <div class="input-group" style="margin-bottom: 5px;">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Internal Notes</span>
+                                        <label class="input-group-text" for="new_modulesSteps_internalNotes">Internal Notes</label>
                                     </div>
-                                    <textarea type="text" class="form-control" name="modulesSteps_internalNotes" rows="6"></textarea>
+                                    <textarea id="new_modulesSteps_internalNotes" type="text" class="form-control" name="modulesSteps_internalNotes" rows="6"></textarea>
                                 </div>
                                 <div class="input-group" style="margin-bottom: 5px;">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Estimated Completion Time (in minutes)</span>
+                                        <label class="input-group-text" for="new_modulesSteps_completionTime">Estimated Completion Time (in minutes)</label>
                                     </div>
-                                    <input type="number" class="form-control" name="modulesSteps_completionTime" min="1" max="180" value="2" required />
+                                    <input id="new_modulesSteps_completionTime" type="number" class="form-control" name="modulesSteps_completionTime" min="1" max="180" value="2" required />
                                 </div>
                                 <div class="input-group" style="margin-bottom: 5px;">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Type</span>
+                                        <label class="input-group-text" for="new_modulesSteps_type">Type</label>
                                     </div>
-                                    <select class="form-control" name="modulesSteps_type">
+                                    <select id="new_modulesSteps_type" class="form-control" name="modulesSteps_type">
 
                                         <option value="1" selected>Text</option>
                                         <option value="2" disabled>Custom HTML</option>
@@ -152,28 +152,28 @@
                                     <input type="hidden" name="modulesSteps_id" value="{{ step.modulesSteps_id }}"/>
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Title</span>
+                                            <label class="input-group-text" for="edit_modulesSteps_name_{{ step.modulesSteps_id }}">Title</label>
                                         </div>
-                                        <input required type="text" class="form-control" name="modulesSteps_name" value="{{ step.modulesSteps_name }}" required>
+                                        <input id="edit_modulesSteps_name_{{ step.modulesSteps_id }}" required type="text" class="form-control" name="modulesSteps_name" value="{{ step.modulesSteps_name }}" required>
                                     </div>
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Internal Notes</span>
+                                            <label class="input-group-text" for="edit_modulesSteps_internalNotes_{{ step.modulesSteps_id }}">Internal Notes</label>
                                         </div>
-                                        <textarea type="text" class="form-control" name="modulesSteps_internalNotes" rows="6">{{ step.modulesSteps_internalNotes }}</textarea>
+                                        <textarea id="edit_modulesSteps_internalNotes_{{ step.modulesSteps_id }}" type="text" class="form-control" name="modulesSteps_internalNotes" rows="6">{{ step.modulesSteps_internalNotes }}</textarea>
                                     </div>
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Estimated Completion Time (in minutes)</span>
+                                            <label class="input-group-text" for="edit_modulesSteps_completionTime_{{ step.modulesSteps_id }}">Estimated Completion Time (in minutes)</label>
                                         </div>
-                                        <input type="number" class="form-control" name="modulesSteps_completionTime" value="{{ step.modulesSteps_completionTime }}" min="1" max="180" value="2" required />
+                                        <input id="edit_modulesSteps_completionTime_{{ step.modulesSteps_id }}" type="number" class="form-control" name="modulesSteps_completionTime" value="{{ step.modulesSteps_completionTime }}" min="1" max="180" value="2" required />
                                     </div>
                                     {% if step.modulesSteps_locked != 1 %}
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Publish in the module to be completed by users</span>
+                                            <label class="input-group-text" for="edit_modulesSteps_show_{{ step.modulesSteps_id }}">Publish in the module to be completed by users</label>
                                         </div>
-                                        <input required type="checkbox" class="form-control" name="modulesSteps_show" {{ step.modulesSteps_show == 1 ? 'checked' : ''}}>
+                                        <input id="edit_modulesSteps_show_{{ step.modulesSteps_id }}" required type="checkbox" class="form-control" name="modulesSteps_show" {{ step.modulesSteps_show == 1 ? 'checked' : ''}}>
                                     </div>
                                     {% else %}
                                         <input required type="checkbox" style="display:none;" name="modulesSteps_show" {{ step.modulesSteps_show == 1 ? 'checked' : ''}}>
@@ -197,9 +197,9 @@
                                     {% elseif step.modulesSteps_type == 3 %}
                                         <div class="input-group" style="margin-bottom: 5px;">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">YouTube video code</span>
+                                                <label class="input-group-text" for="edit_modulesSteps_youtube_{{ step.modulesSteps_id }}">YouTube video code</label>
                                             </div>
-                                            <input type="text" class="form-control" name="modulesSteps_content" value="{{ step.modulesSteps_content }}" required />
+                                            <input id="edit_modulesSteps_youtube_{{ step.modulesSteps_id }}" type="text" class="form-control" name="modulesSteps_content" value="{{ step.modulesSteps_content }}" required />
                                         </div>
                                     {% endif %}
                                 </form>
