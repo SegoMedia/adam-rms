@@ -75,22 +75,22 @@
                         <div class="modal-body">
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Name</span>
+                                    <label class="input-group-text" for="appName-{{app.projectsVacantRolesApplications_id}}">Name</label>
                                 </div>
-                                <input type="text" disabled class="form-control" value="{{ app.users_name1 }} {{app.users_name2 }}">
+                                <input type="text" disabled class="form-control" id="appName-{{app.projectsVacantRolesApplications_id}}" value="{{ app.users_name1 }} {{app.users_name2 }}">
                             </div>
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Email</span>
+                                    <label class="input-group-text" for="appEmail-{{app.projectsVacantRolesApplications_id}}">Email</label>
                                 </div>
-                                <input type="email" disabled class="form-control" value="{{ app.users_email }}">
+                                <input type="email" disabled class="form-control" id="appEmail-{{app.projectsVacantRolesApplications_id}}" value="{{ app.users_email }}">
                             </div>
                             {% if role.projectsVacantRoles_collectPhone == 1 %}
                             <div class="input-group" style="margin-bottom: 5px;">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Phone</span>
+                                    <label class="input-group-text" for="appPhone-{{app.projectsVacantRolesApplications_id}}">Phone</label>
                                 </div>
-                                <input type="tel" disabled class="form-control" value="{{ app.projectsVacantRolesApplications_phone }}">
+                                <input type="tel" disabled class="form-control" id="appPhone-{{app.projectsVacantRolesApplications_id}}" value="{{ app.projectsVacantRolesApplications_phone }}">
                             </div>
                             {% endif %}
                             <h3>Application Comments</h3>
