@@ -183,22 +183,22 @@
                                     <input type="hidden" name="cmsPages_id" value="{{ page.cmsPages_id }}"/>
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Name</span>
+                                            <label class="input-group-text" for="cmsPages_name_{{ page.cmsPages_id }}">Name</label>
                                         </div>
-                                        <input required type="text" class="form-control" placeholder="Lowering Instructions" name="cmsPages_name" value="{{ page.cmsPages_name }}">
+                                        <input id="cmsPages_name_{{ page.cmsPages_id }}" required type="text" class="form-control" placeholder="Lowering Instructions" name="cmsPages_name" value="{{ page.cmsPages_name }}">
                                     </div>
 
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Description</span>
+                                            <label class="input-group-text" for="cmsPages_description_{{ page.cmsPages_id }}">Description</label>
                                         </div>
-                                        <textarea type="text" class="form-control" placeholder="Instructions on how to lower the drum revolve" name="cmsPages_description" rows="2">{{ page.cmsPages_description }}</textarea>
+                                        <textarea id="cmsPages_description_{{ page.cmsPages_id }}" type="text" class="form-control" placeholder="Instructions on how to lower the drum revolve" name="cmsPages_description" rows="2">{{ page.cmsPages_description }}</textarea>
                                     </div>
                                     <div class="input-group" style="margin-bottom: 5px;">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Icon</span>
+                                            <label class="input-group-text" for="cmsPages_fontAwesome_{{ page.cmsPages_id }}">Icon</label>
                                         </div>
-                                            <select class="form-control rms-icon-picker" name="cmsPages_fontAwesome">
+                                            <select id="cmsPages_fontAwesome_{{ page.cmsPages_id }}" class="form-control rms-icon-picker" name="cmsPages_fontAwesome">
                                                 {% if page.cmsPages_fontAwesome %}
                                                     <option value="{{ page.cmsPages_fontAwesome }}"></option>
                                                 {% endif %}
