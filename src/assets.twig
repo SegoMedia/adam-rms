@@ -262,6 +262,20 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body" style="padding:0;text-align:left;overflow-x: auto;">
+                                                                    {% if searchResults.PROJECT.ID and "PROJECTS:PROJECT_ASSETS:CREATE:ASSIGN_AND_UNASSIGN"|instancePermissions %}
+                                                                        <div class="row p-2">
+                                                                            <div class="col-8">
+                                                                            </div>
+                                                                            <div class="col-4 text-right">
+                                                                                <div class="input-group input-group-sm">
+                                                                                    <input type="number" class="form-control" placeholder="Qty" min="1" max="{{ asset.countAvailable }}" id="bulkAddQty{{ asset.assetTypes_id }}" aria-label="Quantity to add">
+                                                                                    <div class="input-group-append">
+                                                                                        <button class="btn btn-success bulkAddToBasketAssetTypeButton" type="button" data-assetTypeId="{{ asset.assetTypes_id }}" {% if asset.countAvailable < 1 %} disabled {% endif %}><i class="fas fa-plus"></i> Add</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endif %}
                                                                     <table class="table table-striped">
                                                                         <tr>
                                                                             <th>ID</th>
@@ -643,6 +657,31 @@ $(document).ready(function () {
                 type: 'success',
                 title: 'Added to {{ searchResults.PROJECT.NAME }}'
             });
+        });
+    });
+    $(".bulkAddToBasketAssetTypeButton").click(function () {
+        const thisButton = $(this);
+        var assetTypeId = thisButton.data("assettypeid");
+        var qty = $("#bulkAddQty" + assetTypeId).val();
+
+        if (!qty || qty <= 0) {
+            Toast.fire({
+                type: 'error',
+                title: 'Please enter a valid quantity'
+            });
+            return;
+        }
+
+        ajaxcall("projects/assets/assign.php", {
+            "assetTypes_id": assetTypeId,
+            "projects_id": "{{ searchResults.SEARCH.PROJECT_ID }}",
+            "limit": qty
+        }, function (data) {
+            Toast.fire({
+                type: 'success',
+                title: 'Assets Added to {{ searchResults.PROJECT.NAME }}'
+            });
+            location.reload();
         });
     });
     $(".removeFromBasketAssetButton").click(function () {

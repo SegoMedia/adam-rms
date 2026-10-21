@@ -39,6 +39,7 @@ $DBLIB->where("(assets.assets_endDate IS NULL OR assets.assets_endDate >= '" . $
 $DBLIB->where("assets.instances_id", $AUTH->data['instance_ids'], 'IN');
 $DBLIB->where("assets_deleted", 0);
 $DBLIB->join("assetTypes","assets.assetTypes_id=assetTypes.assetTypes_id", "LEFT");
+$DBLIB->orderBy("assets_tag", "ASC");
 $assetIDs = $DBLIB->get("assets", null, $assetRequiredFields);
 
 function linkedAssets($assetId,$linkCount) {
@@ -63,9 +64,28 @@ foreach ($assetIDs as $asset) {
     $assetsToProcess[] = $asset;
     linkedAssets($asset['assets_id'],(count($assetsToProcess)-1));
 }
+$limit = isset($_POST['limit']) ? intval($_POST['limit']) : 0;
+$assignedCount = 0;
+
 $assetsFailed = [];
 $assetsProcessing = [];
 foreach ($assetsToProcess as $asset) {
+    $skip = false;
+    if ($asset['linkedto'] === false) {
+        if ($limit > 0 && $assignedCount >= $limit) {
+            $skip = true;
+        }
+    } else {
+        if (!isset($assetsProcessing[$asset['linkedto']]['insertedid'])) {
+            $skip = true;
+        }
+    }
+
+    if ($skip) {
+        $assetsProcessing[] = $asset;
+        continue;
+    }
+
     $DBLIB->where("assets_id", $asset['assets_id']);
     $DBLIB->where("assetsAssignments.assetsAssignments_deleted", 0);
     $DBLIB->join("projects", "assetsAssignments.projects_id=projects.projects_id", "LEFT");
@@ -103,6 +123,7 @@ foreach ($assetsToProcess as $asset) {
             if ($insertData['assetsAssignments_discount'] > 0) $projectFinanceCacher->adjust('projectsFinanceCache_equiptmentDiscounts', $price->subtract($price->multiply(1 - ($insertData['assetsAssignments_discount'] / 100))));
 
             $asset['insertedid'] = $insert;
+            if ($asset['linkedto'] === false) $assignedCount++;
 
             $usersNotified = []; //If user follows multiple groups which this asset is in they'll be notified multiple times otherwise
             foreach (explode(",",$asset['assets_assetGroups']) as $group) {
