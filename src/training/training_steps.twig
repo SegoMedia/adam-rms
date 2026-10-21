@@ -20,7 +20,7 @@
                         Module Steps
                     </h3>
                     <div class="card-tools pull-right">
-                       <button type="button" class="btn-sm btn btn-default" data-toggle="modal" data-target="#newModal"><i class="fa fa-plus"></i></button>
+                       <button type="button" class="btn-sm btn btn-default" data-toggle="modal" data-target="#newModal" aria-label="New Step" title="New Step"><i class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
@@ -74,9 +74,9 @@
                                 </td>
                                 <td class="project-actions text-right">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editModal{{ step.modulesSteps_id }}"><i class="fas fa-edit"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editModal{{ step.modulesSteps_id }}" aria-label="Edit Step" title="Edit Step"><i class="fas fa-edit"></i></button>
                                         {% if step.modulesSteps_locked != 1 %}
-                                        <button type="button" class="btn btn-danger btn-sm deleteButton" data-id="{{ step.modulesSteps_id }}"><i class="fas fa-trash"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm deleteButton" data-id="{{ step.modulesSteps_id }}" aria-label="Delete Step" title="Delete Step"><i class="fas fa-trash"></i></button>
                                         {% endif %}
                                     </div>
                                 </td>
