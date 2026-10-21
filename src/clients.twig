@@ -34,9 +34,9 @@
                             </div>
                             <input type="text" name="q" class="form-control" placeholder="Search" value="{{ search }}" />
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-default" title="Search" aria-label="Search"><i class="fa fa-search"></i></button>
                                 {% if "CLIENTS:CREATE"|instancePermissions %}
-                                <button type="button" class="btn btn-default" id="newClientButton"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-default" id="newClientButton" title="New Client" aria-label="New Client"><i class="fa fa-plus"></i></button>
                                 {% endif %}
                             </div>
 
@@ -84,11 +84,11 @@
                                     {% if "CLIENTS:EDIT"|instancePermissions %}
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#clientModal{{ client.clients_id }}"><i class="fas fa-edit"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#clientModal{{ client.clients_id }}" title="Edit Client" aria-label="Edit Client"><i class="fas fa-edit"></i></button>
                                             {% if not(showArchived) %}
-                                                <button type="button" class="btn btn-warning btn-sm archiveButton" data-id="{{ client.clients_id }}"><i class="fas fa-archive"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm archiveButton" data-id="{{ client.clients_id }}" title="Archive Client" aria-label="Archive Client"><i class="fas fa-archive"></i></button>
                                             {% else %}
-                                                <button type="button" class="btn btn-success btn-sm unarchiveButton" data-id="{{ client.clients_id }}"><i class="fas fa-archive"></i></button>
+                                                <button type="button" class="btn btn-success btn-sm unarchiveButton" data-id="{{ client.clients_id }}" title="Unarchive Client" aria-label="Unarchive Client"><i class="fas fa-archive"></i></button>
                                             {% endif %}
                                         </div>
                                         <div class="modal fade" id="clientModal{{ client.clients_id }}">
