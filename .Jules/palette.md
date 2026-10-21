@@ -6,6 +6,6 @@
 ## 2024-05-22 - Improving Form Accessibility in Twig Templates
 **Learning:** Bootstrap input groups often use `span.input-group-text` as visual labels. Changing these to `label.input-group-text` with a `for` attribute is a valid and safe way to improve accessibility without breaking the layout.
 **Action:** When auditing forms, check input groups for missing label associations and use `label.input-group-text` as a direct fix.
-## 2026-02-27 - Missing ARIA labels on icon-only buttons in Twig templates
-**Learning:** Found that Twig templates like `src/manufacturers.twig` make heavy use of AdminLTE and FontAwesome for UI but frequently omit `aria-label` attributes on icon-only `<button>` and `<a>` elements, rendering them inaccessible to screen readers.
-**Action:** Always verify that icon-only interactive elements in Twig templates include descriptive `aria-label` attributes (and optionally `title` attributes for visual tooltips) to improve accessibility and user experience.
+## 2024-03-01 - Form Label Accessibility in Input Groups
+**Learning:** AdminLTE/Bootstrap `input-group-text` elements are often implemented as `<span>` tags next to inputs. While visually appearing as labels, they are not read by screen readers as associated with the input.
+**Action:** When using `input-group-text`, convert the `<span>` to a `<label>` and explicitly link it to the adjacent input using a `for` attribute that matches the input's `id`. If the input lacks an `id` (like `assets_notes`), add one to complete the association.
