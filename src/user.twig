@@ -149,7 +149,9 @@
                                     </div><br/>
                                     <label for="users_social_snapchat">Snapchat</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fab fa-snapchat-ghost"></i></span></div>
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="users_social_snapchat"><i class="fab fa-snapchat-ghost"></i></label>
+                                        </div>
                                         <input type="text" class="form-control" id="users_social_snapchat" name="users_social_snapchat" value="{{ user.users_social_snapchat }}">
                                     </div><br/>
                                     <input type="hidden" name="users_userid" value="{{ user.users_userid }}" />
