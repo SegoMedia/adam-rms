@@ -3,9 +3,11 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-
-env:
-  REGISTRY_IMAGE: ghcr.io/${{ github.repository }}
+    inputs:
+      version:
+        description: "Version to publish (e.g. v1.203.0-1.0.3). Defaults to the release tag, then the ref name, then sha-<short>."
+        required: false
+        type: string
 
 jobs:
   build:
@@ -24,21 +26,36 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+      # GHCR rejects uppercase names, so ghcr.io/${{ github.repository }} fails for
+      # SegoMedia/adam-rms ("repository name (SegoMedia/adam-rms) must be lowercase").
+      # Resolve the lowercased image and a non-empty version once per job.
+      - name: Resolve image name and version
+        id: meta
+        run: |
+          image="ghcr.io/${GITHUB_REPOSITORY,,}"
+          version="${{ inputs.version }}"
+          if [ -z "$version" ]; then version="${{ github.event.release.tag_name }}"; fi
+          if [ -z "$version" ]; then version="${{ github.ref_name }}"; fi
+          case "$version" in
+            ''|main|master) version="sha-$(printf '%s' "${{ github.sha }}" | cut -c1-7)" ;;
+          esac
+          echo "image=$image" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
       - name: Create Version Folder if not exists
         run: |
           test -d src/version || mkdir src/version
         shell: bash
       - name: Write Version Number
         run: |
-          echo $TAG > src/version/TAG.txt
+          echo "$VERSION" > src/version/TAG.txt
         shell: bash
         env:
-          TAG: ${{ github.event.release.tag_name }}
+          VERSION: ${{ steps.meta.outputs.version }}
       - name: Docker github meta
         id: docker_github_meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY_IMAGE }}
+          images: ${{ steps.meta.outputs.image }}
           context: git
           labels: |
             maintainer=adam-rms
@@ -49,7 +66,7 @@ jobs:
             org.opencontainers.image.description="AdamRMS is a free, open source advanced Rental Management System for Theatre, AV & Broadcast. This image is a PHP Apache2 docker container, which exposes AdamRMS on port 80."
             org.opencontainers.image.licenses=AGPL-3.0
           tags: |
-            type=semver,pattern=${{ github.event.release.tag_name }}
+            type=raw,value=${{ steps.meta.outputs.version }}
       - name: Set up Docker buildx
         uses: docker/setup-buildx-action@v3
       - name: Log in to GitHub Container Registry
@@ -69,7 +86,7 @@ jobs:
           annotations: ${{ steps.docker_github_meta.outputs.annotations }}
           cache-from: type=gha,scope=build-${{ matrix.platform }}
           cache-to: type=gha,mode=max,scope=build-${{ matrix.platform }}
-          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          outputs: type=image,name=${{ steps.meta.outputs.image }},push-by-digest=true,name-canonical=true,push=true
       - name: Export digest
         run: |
           mkdir -p /tmp/digests
@@ -98,11 +115,23 @@ jobs:
           path: /tmp/digests
           pattern: digests-*
           merge-multiple: true
+      - name: Resolve image name and version
+        id: meta
+        run: |
+          image="ghcr.io/${GITHUB_REPOSITORY,,}"
+          version="${{ inputs.version }}"
+          if [ -z "$version" ]; then version="${{ github.event.release.tag_name }}"; fi
+          if [ -z "$version" ]; then version="${{ github.ref_name }}"; fi
+          case "$version" in
+            ''|main|master) version="sha-$(printf '%s' "${{ github.sha }}" | cut -c1-7)" ;;
+          esac
+          echo "image=$image" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
       - name: Docker github meta
         id: docker_github_meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY_IMAGE }}
+          images: ${{ steps.meta.outputs.image }}
           context: workflow
           labels: |
             maintainer=adam-rms
@@ -113,7 +142,7 @@ jobs:
             org.opencontainers.image.description="AdamRMS is a free, open source advanced Rental Management System for Theatre, AV & Broadcast. This image is a PHP Apache2 docker container, which exposes AdamRMS on port 80."
             org.opencontainers.image.licenses=AGPL-3.0
           tags: |
-            type=semver,pattern=${{ github.event.release.tag_name }}
+            type=raw,value=${{ steps.meta.outputs.version }}
       - name: Set up Docker buildx
         uses: docker/setup-buildx-action@v3
       - name: Log in to GitHub Container Registry
@@ -131,16 +160,16 @@ jobs:
             TAG_ARGS+=( -t "$tag" )
           done < <(jq -r '.tags[]' <<< "$DOCKER_METADATA_OUTPUT_JSON")
           docker buildx imagetools create "${TAG_ARGS[@]}" \
-            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+            $(printf '${{ steps.meta.outputs.image }}@sha256:%s ' *)
           DIGEST="sha256:$(docker buildx imagetools inspect "$(jq -r '.tags[0]' <<< "$DOCKER_METADATA_OUTPUT_JSON")" --raw | sha256sum | awk '{print $1}')"
           echo "digest=$DIGEST" >> "$GITHUB_OUTPUT"
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.docker_github_meta.outputs.version }}
+          docker buildx imagetools inspect ${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.version }}
       - name: Attest Docker image
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: ${{ env.REGISTRY_IMAGE }}
+          subject-name: ${{ steps.meta.outputs.image }}
           subject-digest: ${{ steps.create_manifest.outputs.digest }}
           push-to-registry: true
       - name: Trigger Deploy
