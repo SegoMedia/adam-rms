@@ -17,6 +17,9 @@ concurrency:
 jobs:
   sync:
     name: Upload docs to R2
+    # Fork guard: the R2 bucket and its upload credentials belong to the upstream
+    # repository, so this job cannot succeed anywhere else.
+    if: github.repository == 'adam-rms/adam-rms'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

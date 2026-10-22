@@ -30,7 +30,10 @@ RUN --mount=type=bind,source=composer.json,target=composer.json \
 # - https://github.com/docker-library/docs/tree/master/php#php-core-extensions
 # - https://github.com/docker-library/docs/tree/master/php#how-to-install-more-php-extensions
 
-FROM php:8.3-apache AS final
+# Pinned to the patch release that fixes CVE-2026-109618 / CVE-2026-109619.
+# Bump deliberately on each PHP security release; a floating 8.3 tag plus a
+# stale build cache can silently keep an older patch level.
+FROM php:8.3.36-apache AS final
 
 LABEL org.opencontainers.image.source=https://github.com/adam-rms/adam-rms
 LABEL org.opencontainers.image.documentation=https://adam-rms.com/self-hosting
