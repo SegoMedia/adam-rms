@@ -1,0 +1,55 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 8.3 is what the Dockerfile ships today; 8.4/8.5 guard the upgrade path
+        php-version: [ '8.3', '8.4', '8.5' ]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mysqli, intl, gd, zip
+        coverage: pcov
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-interaction
+
+    - name: Audit dependencies for known vulnerabilities
+      run: composer audit --locked --no-interaction
+
+    - name: Run tests with coverage
+      if: matrix.php-version == '8.3'
+      run: vendor/bin/phpunit --coverage-text --coverage-clover coverage.xml
+
+    - name: Run tests
+      if: matrix.php-version != '8.3'
+      run: vendor/bin/phpunit
+
+    - name: Upload coverage report
+      if: matrix.php-version == '8.3'
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coverage.xml

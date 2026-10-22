@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/bootstrap.php';
 
-class ProjectFinanceTest extends TestCase {
+class ProjectFinanceTest extends \PHPUnit\Framework\TestCase {
     public function testSameDay() {
         $pf = new projectFinance();
         $result = $pf->durationMathsByDates('2023-10-27', '2023-10-27');
@@ -35,7 +34,3 @@ class ProjectFinanceTest extends TestCase {
     }
 }
 
-$test = new ProjectFinanceTest();
-if (!$test->run()) {
-    exit(1);
-}

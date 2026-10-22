@@ -24,3 +24,7 @@ node_modules/
 /website/.cache-loader
 /website/api-docs
 npm-debug.log*
+
+# PHPUnit
+.phpunit.cache
+**/.phpunit.cache
