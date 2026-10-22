@@ -43,8 +43,14 @@
   },
   "license": "AGPL-3.0-only",
   "config": {
+    "platform": {
+      "php": "8.3.36"
+    },
     "allow-plugins": {
       "php-http/discovery": true
+    },
+    "audit": {
+      "abandoned": "ignore"
     }
   }
 }

@@ -19,8 +19,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # 8.3 is what the Dockerfile ships today; 8.4/8.5 guard the upgrade path
-        php-version: [ '8.3', '8.4', '8.5' ]
+        # 8.3 is what the Dockerfile ships; 8.4 guards the upgrade path.
+        # 8.5 is blocked by phpoffice/phpspreadsheet 1.x (requires <8.5.0).
+        php-version: [ '8.3', '8.4' ]
 
     steps:
     - uses: actions/checkout@v4
